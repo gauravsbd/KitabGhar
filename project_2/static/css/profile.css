@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* outline: 1px solid red; */
+}
+body{
+    margin-top: 7rem;
+}
+
+
+.row{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.user-details{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-photo{
+    font-size: 3rem;
+
+}
+.sold-books{
+    background-color: lightblue;
+
+}
+.book-status{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+    align-items: center;
+}

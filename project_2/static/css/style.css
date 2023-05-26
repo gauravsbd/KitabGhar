@@ -1,0 +1,91 @@
+*{
+ margin: 0;   
+ padding: 0;
+ box-sizing: border-box;
+
+}
+.slider-wrapper{
+    /* height: calc(100vh - 96px); */
+    background-image: url(/static/Images/books-2.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    opacity: .875;
+    height: fit-content;
+}
+
+.slider-row{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 2rem;
+}
+.col1{
+    /* position: relative; */
+    color: white;
+    /* padding-top:12rem;
+    padding-left:1rem; */
+    
+}
+.col2{
+    padding: 1rem 2rem;
+    
+}
+    
+
+.col2 .contain{
+    height: 400px;
+    /* width: 60%; */
+    width: 200px;
+    margin: auto; 
+    background-color: white;
+}
+/* slider section ends here */
+
+/* latest books section */
+.latest-books{
+    /* max-height: 100vh; */
+    height: fit-content;
+    padding: 3rem 0;
+    /* overflow: hidden; */
+}
+.underline{
+    margin-left: 1rem;
+    height: .2rem;
+    width: 100%;
+    background-color: black;
+    margin-top: 10px;
+}
+
+.category{
+    font-size: 1rem;
+    background-color: lightblue;
+    border-radius: 4px;
+
+}
+.card:hover{
+    scale:1.05;
+    transform: translate();
+    transition: 300ms;
+}
+.see-all{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.more-books{
+    background-image: radial-gradient(#fff,#ffd6d6) !important;
+}
+
+
+/* Latest books css ends here */
+
+/* Novels Section  */
+.novels{
+    background-color: #e6f4f190;
+    padding:3rem 0;
+}
+
+

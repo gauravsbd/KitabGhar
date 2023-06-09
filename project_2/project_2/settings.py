@@ -11,7 +11,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+# import sys
 
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# sys.path.append(BASE_DIR)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -31,6 +35,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'bookinfo.apps.BookinfoConfig',
+    'baseapp.apps.BaseappConfig',
+    'userapp.apps.UserappConfig',
+    'searchapp.apps.SearchappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -75,8 +83,14 @@ WSGI_APPLICATION = 'project_2.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'project_2',
+        'USER': 'root',
+        'PASSWORD': 'My_sql#1325',
+        'HOST':'localhost',
+        'PORT':'3306',
     }
 }
 
@@ -122,6 +136,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 STATICFILES_DIRS=[
     BASE_DIR,"static",
 ]
+MEDIA_ROOT = os.path.join(BASE_DIR,'MEDIA')
+MEDIA_URL = '/media/'

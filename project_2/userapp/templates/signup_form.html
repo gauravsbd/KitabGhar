@@ -1,0 +1,21 @@
+{% extends 'baseapp/base.html' %}
+{% block content%}
+<h3>SignUP Form</h3>
+<hr>
+
+<form action="" method="post" novalidate> 
+    {% csrf_token %}
+    {% for fm in signupform %}
+    {{fm.label_tag}} {{fm}} {{fm.errors|striptags}}
+    <br><br>
+    {% endfor %}
+    {% comment %} {{ signupform.as_p }} {% endcomment %}
+    <input type="submit">
+</form> 
+<a href="{% url 'login' %}"> Login </a>
+{% if messages %}
+{% for message in messages %}
+<small {% if message.tags%} class="{{message.tags}}" {% endif %}>  {{message}} </small>
+{% endfor %}
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,195 @@
+{% extends 'baseapp/base.html' %}
+{% block content%}
+
+
+<section class="bg-black">
+    <div class="container">
+        <div class="slider-wrapper">
+            <div class="slider-row">
+                <div class="col1 col-lg-6">
+                    <div class="contain">
+                        <h2 class="fw-bold">Kitab Ghar</h2>
+                        <p>
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magnam, odio officia autem fuga exercitationem animi, ratione dolor, vel blanditiis necessitatibus doloremque cumque obcaecati minima! Perferendis, debitis eius! Dolor quis omnis consequuntur et iste cum tempore similique, vitae ipsum laboriosam amet nulla accusamus! Voluptatem accusantium, corporis voluptatum quos adipisci quibusdam eaque.
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum voluptatem eum officiis reprehenderit voluptate quas, iure maxime fugit hic ipsam consequuntur, quaerat explicabo, repellendus sunt magni odit natus. Amet, ea.
+                        </p>
+                    </div>
+                </div>
+                <div class="col2 col-lg-6">
+                    <div class="contain">
+                        {% include "search_form.html "%}
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Letest Books -->
+<section class="latest-books">
+    <div class="container">
+        <div class="row">
+            
+            <div class="see-all">
+                <h2 class="m-0">Latest Books</h2>
+                <button type="button" class="btn more-books">See All</button>
+            </div>
+            <div class="underline"></div>
+            {% for book in data %}
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 py-5 card-col">
+                <div class="card shadow-lg">
+                    <img src="{{ book.image.url }}" class="card-img-top" alt="..." />
+                    <div class="card-body text-center">
+                        <span class="category px-4">{{ book.category}}</span>
+                        <p class="fw-bold my-0 py-1">{{book.title}}</p>
+                        <p class="my-0 py-1">{{book.original_price}}</p>
+                        <p class=" ">{{book.selling_price}}<span>(Fixed/Negotiable)</span></p>
+                        <p>
+                            <i class="fa-sharp fa-solid fa-location-dot px-2"></i>Location
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            {% comment %} {% comment %} owl crousel
+             {% endcomment %}
+             {% comment %} <div class="wrapper">
+             <i id="left" class="fa-solid fa-angle-left"></i>
+      
+    
+             <ul class="carousel">
+          <li class="card">
+          <div class="img"><img src="images/img-1.jpg" alt="img" draggable="false"></div>
+          <h2>Blanche Pearson</h2>
+          <span>Sales Manager</span>
+           </li>
+        </ul>
+        <i id="right" class="fa-solid fa-angle-right"></i>
+            </div> {% endcomment %}
+ 
+
+
+
+            {% comment %} <div class="col-lg-3 col-md-4 col-sm-6 col-12 py-5 card-col">
+                <div class="card shadow-lg">
+                    <img src="/static/Images/books-2.png" class="card-img-top" alt="..." />
+                    <div class="card-body text-center">
+                        <span class="category px-4">Category</span>
+                        <p class="fw-bold my-0 py-1">Book Name:</p>
+                        <p class="my-0 py-1">Original price:</p>
+                        <p class=" ">selling price:<span>(Fixed/Negotiable)</span></p>
+                        <p>
+                            <i class="fa-sharp fa-solid fa-location-dot px-2"></i>Location
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 py-5 card-col">
+                <div class="card shadow-lg">
+                    <img src="/static/Images/books-2.png" class="card-img-top" alt="..." />
+                    <div class="card-body text-center">
+                        <span class="category px-4">Category</span>
+                        <p class="fw-bold my-0 py-1">Book Name:</p>
+                        <p class="my-0 py-1">Original price:</p>
+                        <p class=" ">selling price:<span>(Fixed/Negotiable)</span></p>
+                        <p>
+                            <i class="fa-sharp fa-solid fa-location-dot px-2"></i>Location
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 py-5 card-col">
+                <div class="card shadow-lg">
+                    <img src="/static/Images/books-2.png" class="card-img-top" alt="..." />
+                    <div class="card-body text-center">
+                        <span class="category px-4">Category</span>
+                        <p class="fw-bold my-0 py-1">Book Name:</p>
+                        <p class="my-0 py-1">Original price:</p>
+                        <p class=" ">selling price:<span>(Fixed/Negotiable)</span></p>
+                        <p>
+                            <i class="fa-sharp fa-solid fa-location-dot px-2"></i>Location
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> {% endcomment %}
+
+<!-- Novels And More -->
+<section class="novels">
+    <div class="container">
+        <div class="row">
+            <div class="see-all">
+                <h2 class="m-0">Novels and More</h2>
+                <button type="button" class="btn more-books">See All</button>
+            </div>
+            <div class="underline"></div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 py-5 card-col">
+                <div class="card shadow-lg">
+                    <img src="/static/Images/books-2.png" class="card-img-top" alt="..." />
+                    <div class="card-body text-center">
+                        <span class="category px-4">Category</span>
+                        <p class="fw-bold my-0 py-1">Book Name:</p>
+                        <p class="my-0 py-1">Original price:</p>
+                        <p class=" ">selling price:<span>(Fixed/Negotiable)</span></p>
+                        <p>
+                            <i class="fa-sharp fa-solid fa-location-dot px-2"></i>Location
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 py-5 card-col">
+                <div class="card shadow-lg">
+                    <img src="/static/Images/books-2.png" class="card-img-top" alt="..." />
+                    <div class="card-body text-center">
+                        <span class="category px-4">Category</span>
+                        <p class="fw-bold my-0 py-1">Book Name:</p>
+                        <p class="my-0 py-1">Original price:</p>
+                        <p class=" ">selling price:<span>(Fixed/Negotiable)</span></p>
+                        <p>
+                            <i class="fa-sharp fa-solid fa-location-dot px-2"></i>Location
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 py-5 card-col">
+                <div class="card shadow-lg">
+                    <img src="/static/Images/books-2.png" class="card-img-top" alt="..." />
+                    <div class="card-body text-center">
+                        <span class="category px-4">Category</span>
+                        <p class="fw-bold my-0 py-1">Book Name:</p>
+                        <p class="my-0 py-1">Original price:</p>
+                        <p class=" ">selling price:<span>(Fixed/Negotiable)</span></p>
+                        <p>
+                            <i class="fa-sharp fa-solid fa-location-dot px-2"></i>Location
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 py-5 card-col">
+                <div class="card shadow-lg">
+                    <img src="/static/Images/books-2.png" class="card-img-top" alt="..." />
+                    <div class="card-body text-center">
+                        <span class="category px-4">Category</span>
+                        <p class="fw-bold my-0 py-1">Book Name:</p>
+                        <p class="my-0 py-1">Original price:</p>
+                        <p class=" ">selling price:<span>(Fixed/Negotiable)</span></p>
+                        <p>
+                            <i class="fa-sharp fa-solid fa-location-dot px-2"></i>Location
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content%}

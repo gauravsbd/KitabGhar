@@ -1,0 +1,85 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* outline: 1px solid red; */
+}
+ body{
+    margin: 2rem 0;
+    /* background-color:lightpink; */
+
+}
+
+.row{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    background-color: #BAF5F2;
+    padding: 3rem 0;
+}
+.user-details{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.user-photo-container{
+  width: fit-content;
+  margin-bottom: 2.5rem;
+}
+.user-photo-container a p{
+    color: black;
+    padding-bottom: 1rem;
+}
+.user-photo{
+    position: relative;
+    height: 15%;
+    margin:.75rem 0 3rem 0
+}
+.user-photo i{
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+    border-radius: 50%;
+    font-size: 4.5rem;
+}
+
+.user-photo img{
+    border:1px solid red;
+    width: 100%;
+    height: 100%;
+    border-radius:50%;
+    
+}
+
+.user-photo{
+    font-size: 3rem;
+
+}
+.sold-books{
+    background-color:rgb(218, 218, 64);
+}
+.active-books{
+    background-color: #4af72b;
+}
+.booked-books{
+    background-color: aqua;
+}
+.book-status{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+    align-items: center;
+}
+.info{
+    padding-top: 4rem;
+    padding-left: 2rem;
+}
+.sold-books:hover,.active-books:hover,.booked-books:hover{
+    scale:1.05;
+    transition: 300ms;
+}
+.icon {
+    padding:.2rem;
+  }

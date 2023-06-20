@@ -15,6 +15,7 @@
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<<<<<<< HEAD
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -23,10 +24,37 @@
     <link rel="stylesheet" href="{% static 'baseapp/css/header.css' %}" />
     <link rel="stylesheet" href="{% static 'baseapp/css/footer.css' %}" />
   </head>
+=======
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+   
+    <link rel="stylesheet" href="{% static 'baseapp/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'baseapp/css/header.css' %}" />
+    <link rel="stylesheet" href="{% static 'baseapp/css/footer.css' %}" />
+    
+    <link rel="stylesheet" href="{% static 'baseapp/css/about_us.css' %}" />
+    {% block css %}
+    {% endblock %}
+    {% comment %} <link rel="stylesheet" href="{% static 'userapp/css/profile.css' %}" /> {% endcomment %}
+    {% comment %} <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" /> {% endcomment %}
+   
+    <!-- <link rel="stylesheet" href="{% static 'baseapp/css/crousel.css' %}" /> -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+     
+     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+    
+
+    
+</head>
+>>>>>>> 2e627352b06550f617ba7c4191e7517c95d33300
 
   <body>
     {% include "baseapp/header.html"%} {% block content %}{% endblock content %}
     {% include "baseapp/footer.html" %}
+<<<<<<< HEAD
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
@@ -34,3 +62,16 @@
     ></script>
   </body>
 </html>
+=======
+    
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+        
+        <script src="{% static 'bookinfo/js/leaflet.js'%}"></script>
+
+        
+        
+</body>
+   
+</html>
+>>>>>>> 2e627352b06550f617ba7c4191e7517c95d33300

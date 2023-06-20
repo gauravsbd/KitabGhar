@@ -1,0 +1,49 @@
+{% extends 'baseapp/base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'userapp/css/profile.css' %}" />
+{% endblock %}
+{% block content %}
+
+  <!-- <img src="static/Images/avatar.png"> -->
+  <section class="profile">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-12 user-details"  >
+          <div class=" user-photo-container bg-white text-dark rounded-3 shadow shadow-2" style="height:1000px">
+            <div class="user-photo ">
+              {% comment %} <i class="fa-solid fa-circle-user "></i> {% endcomment %}
+               <img src="{{ userdata.Profile_photo.url }}"  alt=""></i>
+              <!--  -->
+            </div>
+              <h4 id="person-name" class="m-0 py-1 px-3 text-center ">{{ userdata.Name }} </h4>
+              <a href="" style="text-decoration: none;">
+                <p class="px-3 m-0 text-center"><i class="fa-solid fa-pen-to-square icon"></i>edit profile</p>
+              </a>
+              <p class="px-3 m-0 py-1"><i class="fa-solid fa-envelope icon"></i>{{ email }}</p>
+              <p class="px-3 m-0 py-1 "><i class="fa-solid fa-phone icon"></i> <span>{{ userdata.Phone_Number }}</span> </p>
+          </div>
+        </div>
+        <div class="col-lg-6 col-12 book-status text-center ">
+          <div class="sold-books w-50 py-4 fs-4 rounded-4 shadow shadow-5">
+            <p id="sold" class="fw-bold">0</p>
+            <h4>SOLD BOOKS</h4>
+          </div>
+
+          <div class="active-books  w-50 py-4 rounded-4 shadow shadow-5">
+            <p id="sold" class="fw-bold fs-4">0</p>
+            <h4>ACTIVE BOOKS</h4>
+          </div>
+          <div class="booked-books w-50 py-4 rounded-4 shadow shadow-5">
+            <p id="sold" class="fw-bold fs-4">0</p>
+            <h4>BOOKED BOOK</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+  {% endblock content %}
+
+
+</html>

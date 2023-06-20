@@ -6,6 +6,7 @@ from django import forms
 class Bookform(ModelForm):
     class Meta:
         model = Bookinfo
+<<<<<<< HEAD
         fields =['title','description','seller','original_price','selling_price','condition','category','image']
        
     def __init__(self,*args,**kwargs):
@@ -20,3 +21,6 @@ class Bookform(ModelForm):
         self.fields['image'].widget.attrs.update({'class':'form-control'})
         
         
+=======
+        fields =['title','description','seller','original_price','selling_price','condition','category','image','latitude','longitude','added_date']
+>>>>>>> 2e627352b06550f617ba7c4191e7517c95d33300

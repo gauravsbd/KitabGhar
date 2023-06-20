@@ -83,14 +83,14 @@ WSGI_APPLICATION = 'project_2.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
+        #  'ENGINE': 'django.db.backends.sqlite3',
+        #  'NAME': BASE_DIR / 'db.sqlite3',
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'project_2',
-        'USER': 'root',
-        'PASSWORD': 'My_sql#1325',
-        'HOST':'localhost',
-        'PORT':'3306',
+         'NAME': 'project_2',
+         'USER': 'root',
+         'PASSWORD': 'Gaurav@1024#',
+         'HOST':'localhost',
+         'PORT':'3306',
     }
 }
 
@@ -129,7 +129,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -142,3 +142,11 @@ STATICFILES_DIRS=[
 ]
 MEDIA_ROOT = os.path.join(BASE_DIR,'MEDIA')
 MEDIA_URL = '/media/'
+
+#SMTP configuration
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_PORT= 587
+EMAIL_USE_TLS= True
+EMAIL_HOST_USER='kitabghar144@gmail.com'
+EMAIL_HOST_PASSWORD='Kitabghar_144'

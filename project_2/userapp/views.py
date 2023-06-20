@@ -1,16 +1,14 @@
 from django.shortcuts import render
 from django.contrib import messages
 from .forms import signupform
-from django.http import HttpResponse
+from django.contrib.auth.models import User
+
+ 
 
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate , login , logout 
-from django.http import HttpResponseRedirect
-# from django.http import HttpResponse
-# from .forms import loginform , signupform
-# from .models import loginmodel
-# # from .forms import signupform
-# # Create your views here.
+from django.http import HttpResponseRedirect 
+
 def login_form(request):
 
     # return HttpResponse("hello")
@@ -23,26 +21,14 @@ def login_form(request):
             if user is not None:
              login(request,user)
              return HttpResponseRedirect("/")
-     
         
     else:
          form = AuthenticationForm()
          context = {"loginform":form}
-         return render(request,"login_form.html",context)
+         return render(request,"userapp/login_form.html",context)
     
-# def signupform_view(request):
 
-#     # return HttpResponse("hello")
-#     if request.method == 'POST':
-#          return HttpResponse("Done")
-         
-#          pass
-#     else:
-          
-#          form = signupform()
-#          context = {"signupform":form}
-#          return render(request,"signup_form.html",context)    
-# from django.contrib.auth.forms import UserCreationForm
+ 
 
 def signup_form(request):
     if request.method == "POST":
@@ -52,4 +38,9 @@ def signup_form(request):
             fm.save()
     else:    
        fm = signupform()
-    return render (request,'signup_form.html',{'signupform':fm})
+    return render (request,'userapp/signup_form.html',{'signupform':fm})
+
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect('/')
+

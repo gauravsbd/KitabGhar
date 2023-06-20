@@ -1,22 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-from django.utils.translation import gettext as _ 
-
-
-# Create your models here.
-# class Category(models.Model):
-    # category = (
-    #     ('', '+2'),
-    #     ('', 'Medical'),
-    #     ('', 'Engineering'),
-    #     ('', 'Novels & More'),
-    #     ('', 'School'),
-    # )
-
-#     name=models.CharField(max_length=100,choices=category)
-
-   
+from django.utils.translation import gettext as _   
 class Bookinfo(models.Model):
     category = (
         ('+2', '+2'),
@@ -34,5 +19,6 @@ class Bookinfo(models.Model):
     condition = models.CharField(max_length=255)
     category = models.CharField(max_length=100,choices=category)
     image = models.ImageField( upload_to='books/images', height_field=None, width_field=None, max_length=None)
-    # longitude = models.FloatField()
-    # latitude = models.FloatField()
+      # longitude = models.FloatField()
+      # latitude = models.FloatField()
+ 

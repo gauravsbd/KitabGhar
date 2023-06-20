@@ -1,68 +1,42 @@
+
+{% extends 'baseapp/base.html' %}
+
+{% block content%}
+
+
 <h3>Book form</h3>
 <hr>
 
 <form action="" method="post" enctype="multipart/form-data"> 
 	{% csrf_token %}
 	{{ bookform.as_p }}
-
-	<!DOCTYPE html>
-<html>
-  <head>
-    <title>Google Maps API Example</title>
-    <style>
-      #map {
-        height: 200px;
-        width: 50%;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>My Map</h1>
-    <div id="map"></div>
-
-    <script>
-      // Initialize and display the map
-      function initMap() {
-        // Specify the coordinates for the center of the map
-        var center = { lat:28.209499, lng: 83.959518 };
-
-        // Create a map object and specify the DOM element for display
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: center,
-          zoom: 10
-        });
-
-        // Add a marker to the map
-        {% comment %} var marker = new google.maps.Marker({
-          position: center,
-          map: map,
-          title: 'Hello World!'
-        });
-
-		map.addListener('click', function(event) {
-			placeMarker(event.latLng, map);
-		  });
-		  function placeMarker(latLng, map) {
-			// Create a marker and add it to the map
-			var marker = new google.maps.Marker({
-			  position: latLng,
-			  map: map,
-			  title: 'Clicked Location'
-			}); {% endcomment %}
-		{% comment %} //event listner
-		 google.maps.event.addlistener(map , 'click', 
-	     function(event){
-			addmarker({event.latLng});
-		 }
-		
-		); {% endcomment %}
-	  } 
-    </script>
-
-    <!-- Load the Google Maps JavaScript API asynchronously -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFWmj0hIi9hZRY3I4KLQ3kSt1R4RNYniE&callback=initMap"></script>
-  </body>
-</html>
-
+	
 	<input type="submit">
 </form> 
+
+	<div id="map" style="height: 500px;width: 500px;"></div>
+	
+{% comment %} <script>
+ var map = L.map('map').setView([28.26689, 83.96851], 13);
+ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	  maxZoom : 19,
+	 attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	 }).addTo(map);
+map.on('click', function(e) {
+	var marker = new L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);;
+	var lat=document.getElementById("id_latitude")
+ lat.value = e.latlng.lat;
+ var lng=document.getElementById("id_longitude")
+ lng.value = e.latlng.lng;
+ var user=document.getElementById("id_seller")
+ user.value ="{{request.user.username}}";
+var date = new Date();
+var year = date.getFullYear();
+var month = date.getMonth() + 1; // Note: Month is zero-based, so we add 1
+var day = date.getDate();
+var formattedDate = year + '-' + month.toString().padStart(2, '0') + '-' + day.toString().padStart(2, '0');
+var added_date=document.getElementById("id_added_date")
+added_date.value = formattedDate;	 
+});
+</script> {% endcomment %}
+{% endblock content%}

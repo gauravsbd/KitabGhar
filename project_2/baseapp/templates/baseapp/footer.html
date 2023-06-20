@@ -1,3 +1,5 @@
+{% load static%}
+ 
  <footer>
     <div class="container-fluid footer">
       <div class="container">
@@ -5,7 +7,7 @@
           <div class="col-md-4">
             <div class="footer-section">
               <div>
-                <img src="static/Images/22656660-01-02.jpg" alt="logo" height="120px" width="120px" />
+                <a href="{% url 'home' %}"><img src="{% static 'baseapp/Images/22656660-01-02.jpg' %}" alt="logo" height="120px" width="120px" /></a>
               </div>
               <div>
                 <p class="footer-para">
@@ -19,8 +21,8 @@
           <div class="col-md-4">
             <div class="footer-section">
               <h3 class="heading">Links</h3>
-              <a href="">Home</a>
-              <a href="">About us</a>
+              <a href="{% url 'home' %}">Home</a>
+              <a href="{% url 'aboutus' %}">About us</a>
               <a href="">Contact us</a>
               <a href="">Category</a>
             </div>

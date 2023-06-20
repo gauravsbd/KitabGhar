@@ -6,6 +6,9 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from .models import userinfomodel
+from django.forms import ModelForm
+
 
 
 
@@ -33,3 +36,8 @@ class signupform(UserCreationForm):
         #       'Password': forms.PasswordInput(),
         #       'Email': forms.EmailInput()
         # }        
+class userinfoform(ModelForm):
+	class Meta:
+		model = userinfomodel
+		fields = '__all__'	
+		# fields=[ 'Name','Phone_Number','Address','user','Profile_photo']	

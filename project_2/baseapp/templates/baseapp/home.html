@@ -33,14 +33,17 @@
             
             <div class="see-all">
                 <h2 class="m-0">Latest Books</h2>
-                <button type="button" class="btn more-books">See All</button>
+                <button type="button" class="btn more-books " id='see-button'>See All</button>
             </div>
             <div class="underline"></div>
             {% for book in data %}
-            <div class="col-lg-3 col-md-4 col-sm-6 col-12 py-5 card-col">
-                <div class="card shadow-lg">
-                    <img src="{{ book.image.url }}" class="card-img-top" alt="..." />
-                    <div class="card-body text-center">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 py-5 card-col ">
+              <a a href="{% url 'book_detail' book.id %}"> 
+                 <div class="card shadow-lg book-item h-100" > 
+                        <img src="{{ book.image.url }}" class="card-img-top fixed-image " alt="..." />
+
+
+                    <div class="card-body text-center  ">
                         <span class="category px-4">{{ book.category}}</span>
                         <p class="fw-bold my-0 py-1">{{book.title}}</p>
                         <p class="my-0 py-1">{{book.original_price}}</p>
@@ -49,6 +52,7 @@
                             <i class="fa-sharp fa-solid fa-location-dot px-2"></i>Location
                         </p>
                     </div>
+                </a>
                 </div>
             </div>
             {% endfor %}
@@ -121,7 +125,7 @@
 </section> {% endcomment %}
 
 <!-- Novels And More -->
-<section class="novels">
+{% comment %} <section class="novels">
     <div class="container">
         <div class="row">
             <div class="see-all">
@@ -191,5 +195,8 @@
             </div>
         </div>
     </div>
-</section>
+    {% endcomment %}
+</section> 
+</div>
+
 {% endblock content%}

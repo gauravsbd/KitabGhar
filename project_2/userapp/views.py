@@ -71,18 +71,12 @@ class profile_view(View):
           email = request.user.email
           
           data = userinfomodel.objects.get(user_id=id)
-          context={"userdata":data,"email":email}
-
+          fm=userinfoform()
+          context={"userdata":data,"email":email,"userform":fm}
+          
           return render(request,"profile.html",context)
-    
 
-    def post(self, request, *args, **kwargs):
-        return HttpResponse('POST request!')
-class profileedit_view(View):
-    def get(self, request, ):
-        fm=userinfoform()
-        return render(request,"profileedit.html",{'userform':fm})
-    
+          
 
     def post(self, request, *args, **kwargs):
         fm = userinfoform(request.POST,request.FILES)
@@ -90,5 +84,4 @@ class profileedit_view(View):
            
             fm.save()
             return HttpResponse('POST request!')
-           
-
+        

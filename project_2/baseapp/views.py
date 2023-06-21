@@ -10,9 +10,11 @@ from django.http import HttpResponse
 def form_view(request):
 
     data = Bookinfo.objects.all()
-    id = request.user.id
-    userdata = userinfomodel.objects.get(user_id=id)
-    context ={"data":data,"userdata":userdata}
+    context={"data":data}
+    if request.user.is_authenticated:
+        id=request.user.id  
+        userdata = userinfomodel.objects.get(user_id=id)
+        context ={"data":data,"userdata":userdata}
     return render(request,"baseapp/home.html",context)
 def about_us(request):
     return render(request,"baseapp/about_us.html")

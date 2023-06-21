@@ -54,11 +54,17 @@
       
               <a href="">
                 <div class="user-image m-1 dropdown ">
-                  <!-- <img src="{% static 'baseapp/Images/himal.jpg' %}"> -->
-                    <a class="" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                  {% if userdata %}
+                  <a class="" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                       aria-expanded="false">
                       <img src="{{ userdata.Profile_photo.url }}" > 
+                    {% else %}
+                    
+                    <a class="" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                      <img src="" > 
                     </a>
+                  {% endif %}  
                     <ul class="dropdown-menu bg-white border- rounded-1" aria-labelledby="navbarDropdown">
                       <li>
                         <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>

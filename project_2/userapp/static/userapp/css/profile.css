@@ -24,37 +24,29 @@
     align-items: center;
 }
 .user-photo-container{
-  width: fit-content;
+  /* width: fit-content; */
   margin-bottom: 2.5rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 .user-photo-container a p{
     color: black;
     padding-bottom: 1rem;
 }
-.user-photo{
-    position: relative;
-    height: 15%;
-    margin:.75rem 0 3rem 0
-}
-.user-photo i{
-    position: absolute;
-    left: 50%;
-    transform: translatex(-50%);
-    border-radius: 50%;
-    font-size: 4.5rem;
-}
 
+.user-photo{
+    height: 200px;
+    width: 200px;
+    overflow:hidden;
+}
 .user-photo img{
-    border:1px solid red;
     width: 100%;
     height: 100%;
-    border-radius:50%;
-    
-}
-
-.user-photo{
-    font-size: 3rem;
-
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid black;
 }
 /* .sold-books{
     background-color:rgb(218, 218, 64);

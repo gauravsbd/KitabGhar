@@ -1,20 +1,33 @@
 from django.shortcuts import render
 from bookinfo.models import Bookinfo
 from userapp.models import userinfomodel
+from bookinfo.models import Cateogory
+from searchapp.forms import searchform
 
 # Create your views here.
 from django.http import HttpResponse
-# from .forms import searchform
-# from .models import searchfield
+
 # Create your views here.
 def form_view(request):
-
-    data = Bookinfo.objects.all()
-    context={"data":data}
+    filter_category=Cateogory.objects.filter()[:3]
+    filter_books =[]
+    for filter_category in filter_category:
+            category_id = Cateogory.objects.values_list('id', flat=True).filter(category=filter_category).first()
+            books=Bookinfo.objects.filter(category_id=category_id)
+            filter_books.append(books)
+    context={"filter_books":filter_books}
     if request.user.is_authenticated:
-        id=request.user.id  
-        userdata = userinfomodel.objects.get(user_id=id)
-        context ={"data":data,"userdata":userdata}
+        filter_category=Cateogory.objects.filter()[:3]
+        filter_books =[]
+        for filter_category in filter_category:
+            category_id = Cateogory.objects.values_list('id', flat=True).filter(category=filter_category).first()
+            books=Bookinfo.objects.filter(category_id=category_id)
+            filter_books.append(books)
+        form=searchform()   
+        context ={"filter_category":filter_category,"filter_books":filter_books,"form":form}
     return render(request,"baseapp/home.html",context)
+
 def about_us(request):
-    return render(request,"baseapp/about_us.html")
+    if request.user.is_authenticated:
+       
+        return render(request,"baseapp/about_us.html",)

@@ -5,5 +5,5 @@ from django.urls import path
 
 
 urlpatterns = [
-    path("bookinfo",views.book_form,name='bookinfo')
+    path("bookinfo/", views.book_form.as_view() , name='bookinfo'),
 ] 

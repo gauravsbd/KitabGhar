@@ -4,28 +4,13 @@ from django.utils import timezone
 
 from django.utils.translation import gettext as _ 
 
+class Cateogory(models.Model):
+    category=models.CharField(max_length=250)
+    def __str__(self):
+        return self.category
 
-# Create your models here.
-# class Category(models.Model):
-    # category = (
-    #     ('', '+2'),
-    #     ('', 'Medical'),
-    #     ('', 'Engineering'),
-    #     ('', 'Novels & More'),
-    #     ('', 'School'),
-    # )
-
-#     name=models.CharField(max_length=100,choices=category)
-
-   
 class Bookinfo(models.Model):
-    category = (
-        ('+2', '+2'),
-        ('Medical', 'Medical'),
-        ('Engineering', 'Engineering'),
-        ('Noovels & More', 'Novels & More'),
-        ('School', 'School'),
-    )
+    
    
     title = models.CharField(max_length=255)
     description = models.TextField()
@@ -33,8 +18,10 @@ class Bookinfo(models.Model):
     original_price = models.DecimalField(max_digits=8, decimal_places=2)
     selling_price = models.DecimalField(max_digits=8, decimal_places=2)
     condition = models.CharField(max_length=255)
-    category = models.CharField(max_length=100,choices=category)
-    image = models.ImageField( upload_to='books/images', height_field=None, width_field=None, max_length=None)
-    latitude = models.FloatField(default=28.26689)
-    longitude = models.FloatField(default=83.96851)
-    added_date = models.DateField(default="2023-12-13")
+    category = models.ForeignKey(Cateogory, on_delete=models.CASCADE)
+    image = models.ImageField( upload_to='books/images',max_length=None)
+    latitude = models.FloatField(default=None)
+    longitude = models.FloatField(default=None)
+    added_date = models.DateField(default=None)
+    def __str__(self):
+     return self.title

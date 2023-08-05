@@ -3,36 +3,46 @@ from .forms import Bookform
 from .models import Bookinfo
 from django.http import HttpResponse
 from django.views import View
-def book_form(request):
+from userapp.models import userinfomodel
+from bookinfo.models import Cateogory
+
+class book_form(View):
+    def get(self, request, ):
+         form = Bookform()
+         context = {"bookform":form,}
+         return render(request,"book_form.html",context)
     
-    if request.method == 'POST':
-      #  title = request.POST.get('title')
-      #  description = request.POST.get('description')
-      #  seller = request.user
-      #  original_price = request.POST.get('original_price')
-      #  selling_price = request.POST.get('selling_price')
-      #  condition = request.POST.get('condition')
-      #  category = request.POST.get('category')
-      #  image = request.POST.get('image')
-      #  fm= Bookinfo(title = title, description = description ,seller = seller , original_price = original_price , selling_price = selling_price, condition = condition ,category = category,image = image)
+    
+    def post(self, request, *args, **kwargs):
+      
        fm = Bookform(request.POST, request.FILES)
        if fm.is_valid():
         fm.save()  
         return HttpResponse("Done")  
-    else:
-          
-         form = Bookform()
-         context = {"bookform":form}
-         return render(request,"book_form.html",context)
     
+        
 class book_detail(View):
     def get(self, request, id):
+         
           data = Bookinfo.objects.get(id=id)
-          context={"data":data}
-          return render(request,"book_view.html",context)
+          user_id = data.seller
+          seller = userinfomodel.objects.filter(user_id=user_id)
+          
+          context={"data":data,"seller":seller,}
+          return render(request,"book_detail.html",context)
     
 
     def post(self, request, *args, **kwargs):
         return HttpResponse('POST request!')
     
-   
+class all_books(View):
+    def get(self, request, category):
+       category_id = Cateogory.objects.values_list('id', flat=True).filter(category=category).first()
+       data=Bookinfo.objects.filter(category=category_id)
+       context={"data":data,}
+       return render(request,"all_books.html",context)
+    
+
+    def post(self, request, *args, **kwargs):
+        return HttpResponse('POST request!')
+       

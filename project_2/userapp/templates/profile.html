@@ -111,10 +111,9 @@
       <script>
   
      document.getElementById("id_Name").value = "{{ user.Name }}"
-     document.getElementById("id_Phone_Number").value = {{ user.Phone_Number }}
+     document.getElementById("id_Phone_Number").value = {{ user.Phone_Number }} 
      document.getElementById("id_Address").value = "{{ user.Address }}"
-     document.getElementById("id_User").value = "{{ request.user }}"
-     document.getElementById("id_Profile_photo").value = "{{ user.Profile_photo }}" 
+     
      document.getElementById("id_latitude").value = {{ user.latitude }}
      document.getElementById("id_longitude").value = {{user.longitude}}
       {% comment %} document.getElementById("id_Register_date").value = {{ user.Register_date}}       {% endcomment %}

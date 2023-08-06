@@ -24,7 +24,7 @@ class signupform(UserCreationForm):
 class userinfoform(ModelForm):
 	class Meta:
 		model = userinfomodel	
-		fields='__all__'
+		exclude=['user','Profile_photo','Register_date']
 
 	def __init__(self,*args,**kwargs):
 			super().__init__(*args,**kwargs)

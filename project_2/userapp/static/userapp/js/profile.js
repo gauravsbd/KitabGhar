@@ -20,8 +20,6 @@ $('.submitbutton').click(function(){
      var Phone_Number=document.getElementById("id_Phone_Number").value
      var latitude=document.getElementById("id_latitude").value
      var longitude=document.getElementById("id_longitude").value
-     var imageInput= document.getElementById('id_Profile_photo');
-     var Profile_photo = imageInput.files[0];
      
     $.ajax({
         type:"GET",
@@ -32,7 +30,7 @@ $('.submitbutton').click(function(){
             Phone_Number:Phone_Number,
             latitude:latitude,
             longitude:longitude,
-            Profile_photo:Profile_photo   
+              
         },
         success:function(data){
             

@@ -53,7 +53,6 @@ class profile_view(View):
           email = request.user.email
           fm=userinfoform()
           activebooks=Bookinfo.objects.filter(seller_id=request.user.id)
-          
           context={"email":email,"userform":fm,"activebooks":activebooks}
           return render(request,"profile.html",context)
 
@@ -69,27 +68,24 @@ class profile_view(View):
         
 class edit_profile(View):
     def get(self,request):
-        print("ok")
+        
         user_id = request.GET['user_id']
         Name = request.GET['Name']
         Phone_Number =request.GET['Phone_Number']
-        print("ok")
-        image_file =request.FILES.get["Profile_photo"] 
-        print("ok")
-        print(image_file)
+        latitude=request.GET['latitude']
+        longitude=request.GET['longitude']
         try:  
            c=userinfomodel.objects.get(user_id=user_id)
-           # import json
-           # data = list(c.values())
-           # json_data = json.dumps(data)
            c.Name = Name
            c.Phone_Number = Phone_Number
-           if image_file:
-               c.Profile_photo = image_file
+           c.latitude=latitude
+           c.longitude=longitude
            c.save()
+           print('done')
 
         except userinfomodel.DoesNotExist:
             c=userinfomodel(Name=Name,Phone_Number=Phone_Number,)
+            pass
 
         data = {
                 'data': 'done'

@@ -21,8 +21,20 @@
                         <hr>
                         
                         <form action="{% url 'searchapp:search-result' %}" method="GET"> 
-                            {{ form.as_p}}
+                           
                             {% csrf_token %}
+                            <div class="form-group">
+                                <label for="{{ form.Title.id_for_label }}">Title:</label> 
+                                {{ form.Title }}
+                                {% if form.Title.errors %}
+                                    <span class="text-danger">{{ form.Title.errors.as_text }}</span>
+                                {% endif %}
+                                <label for="{{ form.category.id_for_label }}">Category:</label> 
+                                {{ form.category }}
+                                {% if form.category.errors %}
+                                    <span class="text-danger">{{ form.category.errors.as_text }}</span>
+                                {% endif %}
+                            </div>
                             <input type="submit">
                         </form> 
                     </div>

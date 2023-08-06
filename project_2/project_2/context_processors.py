@@ -10,8 +10,6 @@ def global_context(request):
         userdata = userinfomodel.objects.filter(user_id=id)
         category = Cateogory.objects.all()
         context={'category':category,'user':userdata}
-   
-
     return context 
         
         

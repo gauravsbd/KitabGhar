@@ -15,8 +15,9 @@ def form_view(request):
             category_id = Cateogory.objects.values_list('id', flat=True).filter(category=filter_category).first()
             books=Bookinfo.objects.filter(category_id=category_id)
             filter_books.append(books)
-    context={"filter_books":filter_books}
-    if request.user.is_authenticated:
+    form=searchform()  
+    context={"filter_books":filter_books,"form":form}
+    if request.user.is_authenticated: 
         filter_category=Cateogory.objects.filter()[:3]
         filter_books =[]
         for filter_category in filter_category:

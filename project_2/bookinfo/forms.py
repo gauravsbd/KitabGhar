@@ -6,8 +6,7 @@ from django import forms
 class Bookform(ModelForm):
     class Meta:
         model = Bookinfo
-
-        fields= '__all__'
+        exclude=['seller','added_date']
     
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)

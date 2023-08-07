@@ -12,24 +12,24 @@
         <div class="col-lg-6 col-12 user-details"  >
           <div class=" user-photo-container bg-white text-dark shadow shadow-2" >
             <div class="user-photo  ">
-              {% if user %}
-               {% for user in user %}
-                <img src="{{ user.Profile_photo.url }}"  alt="">
+              {% if userdata %}
+               {% for userdata in userdata %}
+                <img src="{{ userdata.Profile_photo.url }}"  alt="">
                 {% endfor %}
                  {% else %}
                  <i class="fa-solid fa-circle-user fs-4 "></i>
                 
               {% endif %}
             </div> 
-              {% if user %}
-             {% for user in user %}
+              {% if userdata %}
+             {% for userdata in userdata %}
             
-              <h4 id="person-name" class="m-0 py-1 px-3 text-center ">{{ user.Name }} </h4>
+              <h4 id="person-name" class="m-0 py-1 px-3 text-center ">{{ userdata.Name }} </h4>
              
                 <p class="px-3 m-0 text-center edit-profile"><i class="fa-solid fa-pen-to-square icon"></i>edit profile</p>
               
               <p class="px-3 m-0 py-1"><i class="fa-solid fa-envelope icon"></i>{{ email }}</p>
-              <p class="px-3 m-0 py-1 "><i class="fa-solid fa-phone icon"></i> <span>{{ user.Phone_Number }}</span> </p>
+              <p class="px-3 m-0 py-1 "><i class="fa-solid fa-phone icon"></i> <span>{{ userdata.Phone_Number }}</span> </p>
               {% endfor %} 
               {% else %}
               <h4 id="person-name" class="m-0 py-1 px-3 text-center ">Your Name </h4>
@@ -72,12 +72,27 @@
              <h1>My Map</h1>
              <div id="map" class="my-1"></div>
              
-             <input type="submit" value="submit" class="btn btn-success my-1 submitbutton " pid="{{request.user.id}}" >
+             <input type="submit" value="submit" class="btn btn-success my-1 submitbutton " > 
            </form>
            </div>
           </div>
          </div>
        </div>
+       <div class="form-container" id="book-form-container">
+        <div class="row">
+         <div class="col-md-6">
+           <form action="" method="post">
+             {% csrf_token %}
+            {{ bookform.as_p }}
+            <h1>My Map</h1>
+            <div id="bookmap" style="height: 500px;width: 500px;"></div>
+            
+            <input type="submit" value="submit" class="btn btn-success my-1 submitbutton " > 
+          </form>
+          </div>
+         </div>
+        </div>
+      </div>
 
        {% comment %} code for the active book {% endcomment %}
        <div class="container" id="active-books-container">
@@ -91,8 +106,9 @@
               <div class="card-body text-center  ">
                   <span class="category px-4">{{activebooks.category}}</span>
                   <p class="fw-bold my-0 py-1">{{activebooks.title}}</p>
+                  
               </div>
-              <button type="button" class="btn more-books " id='edit-books'>Edit</button>
+              <button type="button" class="btn edit-books "  pid={{activebooks.id}}>Edit</button>
           
           </div>
           </div>
@@ -106,16 +122,16 @@
 
 
 
-   {%  if user %}
-   {% for user in user %} 
+   {%  if userdata %}
+   {% for userdata in userdata %} 
       <script>
   
-     document.getElementById("id_Name").value = "{{ user.Name }}"
-     document.getElementById("id_Phone_Number").value = {{ user.Phone_Number }} 
-     document.getElementById("id_Address").value = "{{ user.Address }}"
+     document.getElementById("id_Name").value = "{{ userdata.Name }}"
+     document.getElementById("id_Phone_Number").value = {{ userdata.Phone_Number }} 
+     document.getElementById("id_Address").value = "{{ userdata.Address }}"
      
-     document.getElementById("id_latitude").value = {{ user.latitude }}
-     document.getElementById("id_longitude").value = {{user.longitude}}
+     document.getElementById("id_latitude").value = {{ userdata.latitude }}
+     document.getElementById("id_longitude").value = {{userdata.longitude}}
       {% comment %} document.getElementById("id_Register_date").value = {{ user.Register_date}}       {% endcomment %}
      </script>
      {% endfor %}

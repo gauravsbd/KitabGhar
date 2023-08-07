@@ -12,6 +12,7 @@ from django.views import View
 from .forms import userinfoform
 from .models import userinfomodel
 from django.http import JsonResponse
+from bookinfo.forms import Bookform
 
 # # Create your views here.
 def login_form(request):
@@ -52,8 +53,9 @@ class profile_view(View):
         if request.user.is_authenticated:
           email = request.user.email
           fm=userinfoform()
+          bfm=Bookform(prefix='bookform')
           activebooks=Bookinfo.objects.filter(seller_id=request.user.id)
-          context={"email":email,"userform":fm,"activebooks":activebooks}
+          context={"email":email,"userform":fm,"activebooks":activebooks,"bookform":bfm}
           return render(request,"profile.html",context)
 
           
@@ -73,11 +75,13 @@ class edit_profile(View):
         Name = request.GET['Name']
         Phone_Number =request.GET['Phone_Number']
         latitude=request.GET['latitude']
+        address=request.GET['address']
         longitude=request.GET['longitude']
         try:  
-           c=userinfomodel.objects.get(user_id=user_id)
+           c=userinfomodel.objects.get(user_id=request.user.id)
            c.Name = Name
            c.Phone_Number = Phone_Number
+           c.Address=address
            c.latitude=latitude
            c.longitude=longitude
            c.save()

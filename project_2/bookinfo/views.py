@@ -8,6 +8,7 @@ from .models import Cateogory,Bookinfo
 from datetime import date
 import json
 from django.forms.models import model_to_dict
+from django.core.mail import send_mail
 
 class book_form(View):
     def get(self, request, ):
@@ -45,8 +46,8 @@ class book_form(View):
         bk.seller=seller
         bk.save()  
         return HttpResponse("Done")  
-    
-        
+
+
 class book_detail(View):
     def get(self, request, id):
          
@@ -94,3 +95,6 @@ class edit_books(View):
     def post(self, request, *args, **kwargs):
         return HttpResponse('POST request!')    
        
+
+# code to send mail to the user
+

@@ -98,3 +98,6 @@ class edit_profile(View):
 
     def post(self, request, *args, **kwargs):
         pass
+
+
+    

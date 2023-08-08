@@ -92,7 +92,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
          'NAME': 'project_2',
          'USER': 'root',
-         'PASSWORD': 'My_sql#1325',
+         'PASSWORD': '#jrgm12345',
          'HOST':'localhost',
          'PORT':'3306',
     }
@@ -165,9 +165,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'MEDIA')
 MEDIA_URL = '/media/'
 
 #SMTP configuration
-EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST='smtp.gmail.com'
-EMAIL_PORT= 587
-EMAIL_USE_TLS= True
-EMAIL_HOST_USER='kitabghar144@gmail.com'
-EMAIL_HOST_PASSWORD='Kitabghar_144'

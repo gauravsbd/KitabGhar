@@ -1,5 +1,6 @@
 {% extends 'baseapp/base.html' %} 
 {% block content%}
+{% load static %}
 
 <head>
   <title>Google Maps API Example</title>
@@ -18,19 +19,32 @@
     <div class="row">
       <div class="col-md-6">
         <form action="" method="post" enctype="multipart/form-data">
-          {% csrf_token %} {{ bookform.as_p }}
-         
-        
+          {% csrf_token %} 
+          {{ bookform.title.label_tag }} {{ bookform.title }}<br>
+          {{ bookform.description.label_tag }} {{ bookform.description }}<br>
+          {{ bookform.category.label_tag }} {{ bookform.category }}<br>
+          {{ bookform.original_price.label_tag }} {{ bookform.original_price }}<br>
+          {{ bookform.selling_price.label_tag }} {{ bookform.selling_price }}<br>
+          <!-- Display the uploaded image -->
+          {{ bookform.image.label_tag }}  {{ bookform.image }}<br>
+          <img id="image-preview" src="" alt="Image Preview" width="100">
       </div>
+      <div class="col-md-6">
+        {{ bookform.condition.label_tag }} {{ bookform.condition }}<br>
+        {{ bookform.latitude.label_tag }} {{ bookform.latitude }}<br>
+        {{ bookform.longitude.label_tag }} {{ bookform.longitude }}<br>
+        <h1>Please select the appropriate location on map</h1>
+           <div id="map" class="my-1"></div>
+        <div>
     </div>
-
-    <h1>My Map</h1>
-    <div id="map" class="my-1"></div>
     <input type="submit" class="btn btn-success my-1" />
   </div>
 </form>
   
 </body>
+{% block javascript %}
+<script src="{% static 'bookinfo/js/book_view.js'%}"></script>
+{% endblock javascript %}
 
 {% endblock content%}
 

@@ -14,7 +14,7 @@ from .models import userinfomodel
 from django.http import JsonResponse
 from bookinfo.forms import Bookform
 
-# # Create your views here.
+#  Create your views here.
 def login_form(request):
     if request.method == 'POST':
         fm = AuthenticationForm(request=request, data=request.POST)

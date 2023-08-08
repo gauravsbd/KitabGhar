@@ -51,7 +51,8 @@
       crossorigin="anonymous"
     ></script>
     <script src="{% static 'bookinfo/js/leaflet.js'%}"></script>
-        <script src="{% static 'userapp/js/profile.js'%}"></script>
+       
+        {% block javascript %}{% endblock javascript %}
 </html>
     
         

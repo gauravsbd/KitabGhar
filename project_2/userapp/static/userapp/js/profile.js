@@ -85,7 +85,7 @@ const handleElementClick = (event) => {
                              var marker = new L.marker([lat, lng]).addTo(map);
                             
                             map.on('click', function(e) {
-                                var marker = new L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);;
+                                var marker = new L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
                                 var lat=document.getElementById("id_bookform-latitude")
                              lat.value = e.latlng.lat;
                              var lng=document.getElementById("id_bookform-longitude")
@@ -98,6 +98,27 @@ const handleElementClick = (event) => {
     element.addEventListener("click", handleElementClick);
     
   });
+
+
+
+  //code for the image field in the form
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var imageInput = document.getElementById('id_bookform-image');  // Replace with your image field ID
+    var imagePreview = document.getElementById('image-preview');
+    
+    imageInput.addEventListener('change', function() {
+        var file = imageInput.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+});
+
 
 
 // code for leaflet map

@@ -83,12 +83,23 @@
          <div class="col-md-6">
            <form action="" method="post">
              {% csrf_token %}
-            {{ bookform.as_p }}
-            <h1>My Map</h1>
-            <div id="bookmap" style="height: 500px;width: 500px;"></div>
-            
+             {{ bookform.title.label_tag }} {{ bookform.title }}<br>
+             {{ bookform.description.label_tag }} {{ bookform.description }}<br>
+             {{ bookform.category.label_tag }} {{ bookform.category }}<br>
+             {{ bookform.original_price.label_tag }} {{ bookform.original_price }}<br>
+             {{ bookform.selling_price.label_tag }} {{ bookform.selling_price }}<br>
+             <!-- Display the uploaded image -->
+             {{ bookform.image.label_tag }}  {{ bookform.image }}<br>
+             <img id="image-preview" src="" alt="Image Preview" width="100">
             <input type="submit" value="submit" class="btn btn-success my-1 submitbutton " > 
           </form>
+          </div>
+          <div class="col-md-6 ">
+            {{ bookform.condition.label_tag }} {{ bookform.condition }}<br>
+            {{ bookform.latitude.label_tag }} {{ bookform.latitude }}<br>
+            {{ bookform.longitude.label_tag }} {{ bookform.longitude }}<br>
+            <h1>Click on the map to select the location</h1>
+            <div id="bookmap" style="height: 500px;width: 500px;"></div>
           </div>
          </div>
         </div>
@@ -136,6 +147,10 @@
      </script>
      {% endfor %}
      {% endif %}
+
+     {% block javascript %}
+     <script src="{% static 'userapp/js/profile.js'%}"></script>
+{% endblock javascript%}
 
   {% endblock content %}
 

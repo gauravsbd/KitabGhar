@@ -56,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'userapp.authentication_middleware.AuthenticationMiddleware',
 ]
 
 ROOT_URLCONF = 'project_2.urls'
@@ -92,7 +93,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
          'NAME': 'project_2',
          'USER': 'root',
-         'PASSWORD': '#jrgm12345',
+         'PASSWORD': 'My_sql#1325',
          'HOST':'localhost',
          'PORT':'3306',
     }

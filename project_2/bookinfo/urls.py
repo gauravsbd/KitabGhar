@@ -7,5 +7,8 @@ from django.urls import path
 urlpatterns = [
     path("bookinfo/", views.book_form.as_view() , name='bookinfo'),
     path("editbook/",views.edit_books.as_view(),name="editbook"),
-    path("mailsend/",views.send_mail,name='send_mail'),
+    path("book-book/",views.book_book.as_view(),name='book_book'),
+    path("activebooks/",views.activebooks.as_view(),name='activebooks'),
+    path("pending-request/",views.Pending_books.as_view(),name='pendingrequest'),
+    path("restore-request/",views.Restore_books.as_view(),name="restorebooks"),
 ] 

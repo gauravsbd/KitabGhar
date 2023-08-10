@@ -54,8 +54,8 @@ class profile_view(View):
           email = request.user.email
           fm=userinfoform()
           bfm=Bookform(prefix='bookform')
-          activebooks=Bookinfo.objects.filter(seller_id=request.user.id)
-          context={"email":email,"userform":fm,"activebooks":activebooks,"bookform":bfm}
+         
+          context={"email":email,"userform":fm,"bookform":bfm}
           return render(request,"profile.html",context)
 
           
@@ -85,7 +85,7 @@ class edit_profile(View):
            c.latitude=latitude
            c.longitude=longitude
            c.save()
-           print('done')
+           
 
         except userinfomodel.DoesNotExist:
             c=userinfomodel(Name=Name,Phone_Number=Phone_Number,)

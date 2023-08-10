@@ -2,6 +2,7 @@
 {% load static %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'userapp/css/profile.css' %}" />
+<link rel="stylesheet" href="{% static 'bookinfo/css/popup.css' %}" />
 {% endblock %}
 {% block content %}
 
@@ -14,7 +15,7 @@
             <div class="user-photo  ">
               {% if userdata %}
                {% for userdata in userdata %}
-                <img src="{{ userdata.Profile_photo.url }}"  alt="">
+                <img src="{{ userdata.Profile_photo.url }}"  alt="" >
                 {% endfor %}
                  {% else %}
                  <i class="fa-solid fa-circle-user fs-4 "></i>
@@ -48,22 +49,22 @@
        
         <div class="col-lg-6 col-12 book-status text-center ">
           <div class="sold-books w-50 py-4 fs-4 rounded-4 shadow shadow-5" id="sold-books">
-            <p id="sold" class="fw-bold">0</p>
+            <p id="sold_books" class="fw-bold">0</p>
             <h4>SOLD BOOKS</h4>
           </div>
 
           <div class="active-books  w-50 py-4 rounded-4 shadow shadow-5" id="active-books">
-            <p id="sold" class="fw-bold fs-4">0</p>
+            <p id="active_books" class="fw-bold fs-4">0</p>
             <h4>ACTIVE BOOKS</h4>
           </div>
           <div class="booked-books w-50 py-4 rounded-4 shadow shadow-5" id="booked-books">
-            <p id="sold" class="fw-bold fs-4">0</p>
+            <p id="booked_books" class="fw-bold fs-4">0</p>
             <h4>BOOKED BOOK</h4>
           </div>
         </div>
       </div>
        
-       <div class="form-container" id="edit-form-container">
+       <div class="form-container mx-3" id="edit-form-container">
          <div class="row">
           <div class="col-md-6">
             <form action="" method="post">
@@ -79,7 +80,7 @@
          </div>
        </div>
        <div class="form-container" id="book-form-container">
-        <div class="row">
+        <div class="row ">
          <div class="col-md-6">
            <form action="" method="post">
              {% csrf_token %}
@@ -94,7 +95,7 @@
             <input type="submit" value="submit" class="btn btn-success my-1 submitbutton " > 
           </form>
           </div>
-          <div class="col-md-6 ">
+          <div class="col-md-6">
             {{ bookform.condition.label_tag }} {{ bookform.condition }}<br>
             {{ bookform.latitude.label_tag }} {{ bookform.latitude }}<br>
             {{ bookform.longitude.label_tag }} {{ bookform.longitude }}<br>
@@ -104,31 +105,40 @@
          </div>
         </div>
       </div>
-
+    <section>
        {% comment %} code for the active book {% endcomment %}
-       <div class="container" id="active-books-container">
-        {%if activebooks %}
-        {%for activebooks in activebooks%}
+       <div class="container " id="active-books-container">
         
-          <div class="row">
-       <div class="col-lg-3 col-md-4 col-sm-6 col-12 py-5 card-col" >
-           <div class="card shadow-lg book-item h-100" > 
-                  <img src="{{ activebooks.image.url }}" class="card-img-top fixed-image " alt="..." />
-              <div class="card-body text-center  ">
-                  <span class="category px-4">{{activebooks.category}}</span>
-                  <p class="fw-bold my-0 py-1">{{activebooks.title}}</p>
-                  
-              </div>
-              <button type="button" class="btn edit-books "  pid={{activebooks.id}}>Edit</button>
-          
-          </div>
-          </div>
         </div>
-      
-          {%endfor%}
-          {%endif%}
+      </section>
+  </section>
+
+  {% comment %} code for the booked book  {% endcomment %}
+  <div class="container" id="booked-book-container">
+    aklsjfljsfknjfnjnfjadsnjs
+
+
+    jsdlkjdks
+  </div>
+
+  <!-- popup section -->
+  <section>
+
+    <div class="popup-wrapper">
+      <div class="popup">
+        <div class="close fw-bold fs-4">
+          x
         </div>
-       
+        <div class="popup-content">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias voluptates magni doloribus adipisci earum,
+          facilis odio officiis voluptatem delectus illum, inventore qui eum consequatur, incidunt a atqu
+            <input type="checkbox" id="checkbox">
+            <label for="checkbox">I agree to the terms and cot</label>
+            <button class="submit-btn rounded-3" disabled
+            >Submit</button>
+        </div>
+      </div>
+    </div>
   </section>
 
 

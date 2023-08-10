@@ -1,4 +1,6 @@
 from . import views
+from bookinfo.views import profile_data
+from bookinfo.views import booked_books
  
 from django.urls import path
 from django.contrib.auth import views as auth_views
@@ -15,7 +17,7 @@ urlpatterns = [
     path("forget_password_complete/",auth_views.PasswordResetCompleteView.as_view(),name='password_reset_complete'),
     path("logout/",auth_views.LogoutView.as_view(),name = "logout"),
     path("profile/",views.profile_view.as_view(),name = "profile"),
-    path("editprofile/",views.edit_profile.as_view())
-   
-
+    path("editprofile/",views.edit_profile.as_view()),
+    path("profile-data/",profile_data.as_view()),
+    path("booked-book/",booked_books.as_view())
     ]

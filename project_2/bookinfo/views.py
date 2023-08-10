@@ -4,11 +4,13 @@ from .models import Bookinfo
 from django.http import HttpResponse,JsonResponse
 from django.views import View
 from userapp.models import userinfomodel
-from .models import Cateogory,Bookinfo
+from .models import Cateogory,Bookinfo,Bookedmodel
 from datetime import date
+from django.contrib.auth.models import User
 import json
 from django.forms.models import model_to_dict
-from django.core.mail import send_mail
+import datetime
+ 
 
 class book_form(View):
     def get(self, request, ):
@@ -96,5 +98,116 @@ class edit_books(View):
         return HttpResponse('POST request!')    
        
 
-# code to send mail to the user
+# code to book book
+class book_book(View):
+    def get(self,request):
 
+        if  request.user.is_authenticated:
+            book_id=request.GET["book_id"]
+            date=datetime.date.today()
+            obj=Bookedmodel()
+            obj.buyer_id=request.user.id
+            obj.book_id=book_id
+            obj.booked_request_date=date
+            obj.save()
+            return JsonResponse({'data':'done'})
+        else:
+            
+            return JsonResponse({'error': 'authentication_required', 'redirect_url': '/login/'}, status=401)
+
+   
+
+class activebooks(View):
+    def get (self,request):
+        activebooks_queryset = Bookinfo.objects.filter(seller_id=request.user.id)
+ 
+        booked_book_id=Bookedmodel.objects.values("book_id")
+        id_list = [item['book_id'] for item in booked_book_id]
+       
+        modified_activebooks = []
+
+        for book in activebooks_queryset:
+    # Create a dictionary with the original attributes and the extra attribute
+            id=book.id
+            if id in id_list:
+             
+                book_book=Bookedmodel.objects.get(book_id=id)
+                modified_book = {
+                        'id':id,
+                       'title': book.title,
+                       'image':book.image.url,
+                       'status':book_book.booked_status
+                                  }
+            else:
+                modified_book = {
+                        'id':id,
+                       'title': book.title,
+                       'image':book.image.url,
+                                  }
+            modified_activebooks.append(modified_book)
+        return JsonResponse(modified_activebooks, content_type='application/json', safe=False)
+
+    
+class Pending_books(View):
+    def get(self,request):
+        id=request.GET["book_id"]
+        obj=Bookedmodel.objects.get(book_id=id)
+        obj.booked_status=True
+        obj.save()
+        data={
+            "data":"done"
+        }
+        return JsonResponse(data,content_type='application/json',safe=False) 
+
+class Restore_books(View):
+    def get(self,request):
+        id=request.GET["book_id"]
+        obj=Bookedmodel.objects.get(book_id=id)
+        obj.delete()
+        data={
+            "data":"done"
+        } 
+        return JsonResponse(data,content_type='application/json',safe=False)   
+
+class profile_data(View):
+    def get(self,request):
+
+        activebooks_queryset = Bookinfo.objects.filter(seller_id=request.user.id)
+ 
+        booked_book_id=Bookedmodel.objects.values("book_id")
+        id_list = [item['book_id'] for item in booked_book_id]
+       
+        modified_activebooks = []
+
+        for book in activebooks_queryset:
+    # Create a dictionary with the original attributes and the extra attribute
+            id=book.id
+            if id in id_list:
+             
+                book_book=Bookedmodel.objects.get(book_id=id)
+                modified_book = {
+                        'id':id,
+                       'title': book.title,
+                       'image':book.image.url,
+                       'status':book_book.booked_status
+                                  }
+            else:
+                modified_book = {
+                        'id':id,
+                       'title': book.title,
+                       'image':book.image.url,
+                                  }
+            modified_activebooks.append(modified_book)
+        activebooks_count=len(modified_activebooks)
+        return JsonResponse({"activebooks":activebooks_count},content_type="application/json",safe=False)      
+       
+class booked_books(View):
+    def get(self,request):
+        obj=Bookedmodel.objects.filter(buyer_id=request.user.id).values("book_id")
+        id_list=[list["book_id"] for list in obj]
+        for id in id_list:
+          obj=Bookinfo.objects.get(id=id)
+          print(obj)
+
+        return JsonResponse({"data":"done"},content_type="application/json",safe=False)      
+       

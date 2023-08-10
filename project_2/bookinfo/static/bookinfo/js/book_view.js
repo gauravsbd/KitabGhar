@@ -1,21 +1,4 @@
-<<<<<<< HEAD
-document.addEventListener('DOMContentLoaded', function() {
-    var imageInput = document.getElementById('id_image');  // Replace with your image field ID
-    var imagePreview = document.getElementById('image-preview');
-    
-    imageInput.addEventListener('change', function() {
-        
-        var file = imageInput.files[0];
-        if (file) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                imagePreview.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-});
-=======
+
 const contact = document.querySelector("#buy");
 const popupWrapper = document.querySelector(".popup-wrapper");
 const close = document.querySelector(".close");
@@ -31,43 +14,67 @@ close.addEventListener("click", () => {
   popupWrapper.style.display = "none";
 });
 
-// popupWrapper.addEventListener("click",()=>{
-//     popupWrapper.style.display='none';
-// });
-
 popup.addEventListener("click", (event) => {
   event.stopPropagation();
 });
 
-console.log(checkbox);
-console.log("Insid checkbox event");
-checkbox.addEventListener('change', function() {
-  submit.disabled = !checkbox.checked;
-  submit.addEventListener("click",()=>{
-    popupWrapper.style.display='none'
 
-      
+checkbox.addEventListener('change', function() {
+submit.disabled = !checkbox.checked;
+submit.addEventListener("click",()=>{
+popupWrapper.style.display='none'
+    const book=document.getElementById("book-id")
+    const book_id=book.getAttribute("attr")
+   
+    
     $.ajax({
       type:"GET",
-      url:"/editprofile/",
+      url:"/book-book/",
       data:{
-          user_id:id,
-          Name:Name,
-          Phone_Number:Phone_Number,
-          address:address,
-          latitude:latitude,
-          longitude:longitude,
-            
+          book_id:book_id,
       },
-      success:function(data){
-          alert(data.data)
-      }
-
+      success:function(data,textStatus,xhr){
+        alert("done")
+        if (data.error === 'authentication_required') {
+          var redirectUrl = data.redirect_url;
+          if (redirectUrl) {
+              window.location.href = redirectUrl;
+          }
+      } 
+      
+      
+  },
+  error: function(xhr, textStatus, errorThrown) {
+    if (xhr.status === 401) {
+          window.location.href = "/login/";
+        // User is not authenticated, handle this scenario
+        // You can redirect to the login page or show an error message
+       
+    } else {
+        // Handle other errors
+        console.error('AJAX error:', errorThrown);
+    }
+}
+  
   })
-
-
-
-  })
+})
 });
 
->>>>>>> 5acf67f86e45effb12bf1926bb712f29ef6f7653
+
+document.addEventListener('DOMContentLoaded', function() {
+  var imageInput = document.getElementById('id_image');  // Replace with your image field ID
+  var imagePreview = document.getElementById('image-preview');
+  
+  imageInput.addEventListener('change', function() {
+      
+      var file = imageInput.files[0];
+      if (file) {
+          var reader = new FileReader();
+          reader.onload = function(e) {
+              imagePreview.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+      }
+  });
+});
+

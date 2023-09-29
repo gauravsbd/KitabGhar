@@ -1,4 +1,5 @@
 {% load static %}
+<link rel="stylesheet" href="{% static 'baseapp/css/notification.css' %}" />
 
 <header class="position-sticky top-0">
     <div class="navbar-light bg-white navigation">
@@ -37,52 +38,60 @@
                 </ul>
               </li>
             </ul>
-            <form class="d-flex">
+            <!-- {% comment %} <form class="d-flex">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
               {% comment %} <button class="btn btn-outline-white search" type="submit">
                 Search
               </button> {% endcomment %}
-            </form>
-            <div>
-            {% if request.user.is_authenticated %}
-      
-              <a href="">
-             
-                  {% if userdata %}
-                   {% for userdata in userdata %}
-                    
-                     <div class="user-image m-1 dropdown ">
-                     <a class="" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                      aria-expanded="false">
-                      <img src="{{ userdata.Profile_photo.url }}" >
-                      <ul class="dropdown-menu bg-white border- rounded-1" aria-labelledby="navbarDropdown">
-                        <li>
-                          <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
-                        </li>
-                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-                      </ul> 
-                      {% endfor %} 
-                  {% else %}
-                    <div class="user-image m-1 dropdown ">
+             -->
+             {% if request.user.is_authenticated %}
+             {% if userdata %}
+             {% for userdata in userdata %}
+             <div class="d-flex ">
+                  <div class="user-image m-1 dropdown " id="header-user-image">
                     <a class="" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                       aria-expanded="false">
-                      <i class="fa-solid fa-circle-user fs-4 text-black "></i>
-                    </a>
-                    <ul class="dropdown-menu bg-white border- rounded-1" aria-labelledby="navbarDropdown">
-                      <li>
-                        <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
-                      </li>
-                      <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
-                    </ul>
+                      <i class="fa-solid fa-bell text-black m-1 fs-4" id="notification-button">
+                        {% if notification_count > 0 %}
+                        <span id="notification-count" class='notification-count'>{{notification_count}}</span>
+                        {% endif %}
+                      </i>
+                      <div class ="container" > 
+                        <ul class="dropdown-menu bg-white border- rounded-1 " id="notification-dropdown" aria-labelledby="navbarDropdown">
+                        </ul> 
+                      </div>
+                  </div>
+
+                     <div class="user-image m-1 dropdown " id="header-user-image">
+                       <a class="" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                          <img src="{{ userdata.Profile_photo.url }}" >
+                       <ul class="dropdown-menu bg-white border- rounded-1" aria-labelledby="navbarDropdown">
+                        <li>
+                           <a class="dropdown-item" href="{% url 'profile'%}">Profile</a>
+                        </li> 
+                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                        </ul> 
+                      </div>
+                      {% endfor %} 
+                      {% else %}
+                      <div class="user-image m-1 dropdown ">
+                         <a class="" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                          aria-expanded="false">
+                         <i class="fa-solid fa-circle-user fs-4 text-black "></i>
+                        </a>
+                         <ul class="dropdown-menu bg-white border- rounded-1" aria-labelledby="navbarDropdown">
+                         <li>
+                        <a class="dropdown-item" href="{% url 'profile' %}" id="profile-ajax">Profile</a>
+                         </li>
+                          <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                        </ul>
+                     </div>
                   {% endif %}  
-                 
-                    
-                   
-              </div>
-              </a>
-              <a href="{% url 'bookinfo'%}"><i class="fa-solid fa-circle-plus text-black fs-4 m-1"></i></a>
-              <a href="#"><i class="fa-solid fa-bell text-black m-1 fs-4"></i></a>
-             
+                    <div> <a href="{% url 'bookinfo'%}"><i class="fa-solid fa-circle-plus text-black fs-4 m-1"></i></a>
+                    </div>
+                </div>
+              
             {% else %}
 
               <a href="{% url 'login' %}"><button class="btn btn-outline-white m-2 login" type="submit">
@@ -95,5 +104,13 @@
         </div>
       </nav>
     </div>
+   
+    {% comment %} Notification secton {% endcomment %}
+    
+
+    <script src="{% static 'baseapp/js/notification.js'%}"></script>
+    </section>
+
+
   </header>
  

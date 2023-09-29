@@ -28,9 +28,10 @@ from django.views.static import serve
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-     path("",include("baseapp.urls")),
+    path("",include("baseapp.urls")),
     path("",include("searchapp.urls")),
     path("",include("userapp.urls")),
-    path("",include("bookinfo.urls"))
+    path("",include("bookinfo.urls")),
+    path("",include("chatapp.urls"))
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

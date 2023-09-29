@@ -43,7 +43,37 @@
   <body>
     {% include "baseapp/header.html"%} {% block content %}{% endblock content %}
     {% include "baseapp/footer.html" %}
-    
+    {% if messages %}
+    <div class="alert alert-info hide ">
+      <span class="fas fa-exclamation-circle"></span>
+      <span class="msg fw-light ">
+        <div class="messages">
+          {% for message in messages %}
+          <div class="message {{ message.tags }}">{{ message }}</div>
+          <script>
+            const messageSpan=document.querySelector('.alert span')
+            {% comment %} messageSpan.textContent="Profile changed succesfully" {% endcomment %}
+            $('.alert').addClass("show");
+        $('.alert').removeClass("hide");
+        setTimeout(function(){
+          $('.alert').removeClass("show");
+          $('.alert').addClass("hide");
+        },2000);
+      
+      $('.close-btn').click(function(){
+        $('.alert').removeClass("show");
+        $('.alert').addClass("hide");
+      });
+
+          </script>
+          {% endfor %}
+      </div>
+    </span>
+    <div class="close-btn">
+      <span class="fas fa-times"></span>
+    </div>
+  </div>
+  {% endif %}
   </body>
   <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
@@ -51,10 +81,9 @@
       crossorigin="anonymous"
     ></script>
     <script src="{% static 'bookinfo/js/leaflet.js'%}"></script>
-        <script src="{% static 'userapp/js/profile.js'%}"></script>
-      {% block javascript %}
-      
-      {% endblock %}
+    <script src="{% static 'baseapp/js/home.js'%}"></script>
+       
+        {% block javascript %}{% endblock javascript %}
 </html>
     
         

@@ -35,16 +35,19 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'chatapp.apps.ChatappConfig',
     'bookinfo.apps.BookinfoConfig',
     'baseapp.apps.BaseappConfig',
     'userapp.apps.UserappConfig',
     'searchapp.apps.SearchappConfig',
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'material',
+    'material.admin',
     
 ]
 
@@ -58,6 +61,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'userapp.authentication_middleware.AuthenticationMiddleware',
 ]
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 ROOT_URLCONF = 'project_2.urls'
 
@@ -75,6 +80,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'project_2.context_processors.global_context',
+                'project_2.context_processors.messages'
             ],
         },
     },

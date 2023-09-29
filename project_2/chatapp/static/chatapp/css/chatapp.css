@@ -1,0 +1,31 @@
+.chat-container{
+    margin-top: 100px ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    display: none;
+}
+
+.chat-content{
+    /* height: 300px; */
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color:gold;
+    width: 30%;
+    position: fixed;
+    top: 15%;
+    right: 0;
+    z-index: 1111;
+    
+    
+}
+#message{
+    border-radius: 5px;
+    border: 2px solid black;
+}
+.write-message{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

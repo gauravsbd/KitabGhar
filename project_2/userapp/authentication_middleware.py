@@ -14,7 +14,7 @@ class AuthenticationMiddleware:
                 
                 # Redirect to the login page
                 return redirect(reverse('login'))  # Replace 'login' with your login URL name
-            print("done")
+            
 
         response = self.get_response(request)
         return response

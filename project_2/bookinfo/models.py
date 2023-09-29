@@ -34,3 +34,4 @@ class Bookedmodel(models.Model):
    book_id=models.PositiveIntegerField()
    booked_request_date=models.DateField()
    booked_status=models.BooleanField(default=False)
+   notification_status=models.BooleanField(default=None,null=True)

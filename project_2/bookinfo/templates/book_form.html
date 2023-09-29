@@ -1,50 +1,74 @@
+
 {% extends 'baseapp/base.html' %} 
 {% block content%}
 {% load static %}
+<style>
+  #map{
+    height: 300px;
+    width: 200px;
+  }
+</style>
 
-<head>
-  <title>Google Maps API Example</title>
-  <link rel="stylesheet" href="" />
-  <style>
-    #map {
-      height: 500px;
-      width: 50%;
-    }
-  </style>
-</head>
-<body>
-  <div class="container mt-3">
-    <h3>Book form</h3>
-    <hr />
-    <div class="row">
-      <div class="col-md-6">
-        <form action="" method="post" enctype="multipart/form-data">
-          {% csrf_token %} 
-          {{ bookform.title.label_tag }} {{ bookform.title }}<br>
-          {{ bookform.description.label_tag }} {{ bookform.description }}<br>
-          {{ bookform.category.label_tag }} {{ bookform.category }}<br>
-          {{ bookform.original_price.label_tag }} {{ bookform.original_price }}<br>
-          {{ bookform.selling_price.label_tag }} {{ bookform.selling_price }}<br>
-          <!-- Display the uploaded image -->
-          {{ bookform.image.label_tag }}  {{ bookform.image }}<br>
-          <img id="image-preview" src="" alt="Image Preview" width="100">
-      </div>
-      <div class="col-md-6">
-        {{ bookform.condition.label_tag }} {{ bookform.condition }}<br>
-        {{ bookform.latitude.label_tag }} {{ bookform.latitude }}<br>
-        {{ bookform.longitude.label_tag }} {{ bookform.longitude }}<br>
-        <h1>Please select the appropriate location on map</h1>
-           <div id="map" class="my-1"></div>
-        <div>
+<div class="container mt-3">
+  <h3 class="item-center">Book form</h3>
+  <div class="progress">
+    <div class="progress-bar" id="progress-bar" role="progressbar" style="width: 0;"></div>
+  </div>
+  
+  
+  <form id="multi-step-form" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <!-- Step 1 -->
+    <div class="step col-md-6 my-3" id="step1">
+      {{ bookform.title.label_tag }} {{ bookform.title }} 
+      {{ bookform.description.label_tag }} {{ bookform.description }} 
+      {{ bookform.category.label_tag }} {{ bookform.category }} 
+      <button type="button" class="btn btn-primary my-3 btn-sm w-25 next-button">Next</button>
     </div>
-    <input type="submit" class="btn btn-success my-1" />
+    
+    <!-- Step 2 -->
+    <div class="step col-md-6 my-3" id="step2" style="display: none;">
+      {{ bookform.original_price.label_tag }} {{ bookform.original_price }} 
+      {{ bookform.selling_price.label_tag }} {{ bookform.selling_price }} 
+      {{ bookform.image.label_tag }}{{ bookform.image }} 
+      <img id="image-preview" src="" alt="Image Preview" width="100">
+      <div class="text-center">
+        <div class="row">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-secondary my-3 btn-sm w-50 prev-button">Previous</button>
+            </div>
+            <div class="col-md-6">
+                <button type="button" class="btn btn-primary my-3 btn-sm w-50 next-button" disabled>Next</button>
+            </div>
+        </div>
+    </div>
+    
+    </div>
+    
+    <!-- Step 3 -->
+    <div class="step col-md-6 my-3" id="step3" style="display: none;">
+      {{ bookform.condition.label_tag }} {{ bookform.condition }} 
+      {{ bookform.latitude.label_tag }} {{ bookform.latitude }} 
+      {{ bookform.longitude.label_tag }} {{ bookform.longitude }} 
+      <h3> Select your location </h3>
+      <div id="edit-book-map" class="my-1"></div>
+      <div >
+        <div class="row">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-secondary my-3 btn-sm w-50 prev-button">Previous</button>
+            </div>
+            <div class="col-md-6">
+                 <input type="submit" class="btn btn-primary my-3 btn-sm w-50">
+            </div>
+        </div>
+    </div>
   </div>
 </form>
-  
-</body>
+    
+</div>
 {% block javascript %}
 <script src="{% static 'bookinfo/js/book_view.js'%}"></script>
 {% endblock javascript %}
-
 {% endblock content%}
-
+ 

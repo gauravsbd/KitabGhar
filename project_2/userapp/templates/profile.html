@@ -3,6 +3,9 @@
 {% block css %}
 <link rel="stylesheet" href="{% static 'userapp/css/profile.css' %}" />
 <link rel="stylesheet" href="{% static 'bookinfo/css/popup.css' %}" />
+<link rel="stylesheet" href="{% static 'userapp/css/table.css' %}" />
+<link rel="stylesheet" href="{% static 'chatapp/css/chatapp.css' %}" />
+
 {% endblock %}
 {% block content %}
 
@@ -16,6 +19,9 @@
               {% if userdata %}
                {% for userdata in userdata %}
                 <img src="{{ userdata.Profile_photo.url }}"  alt="" >
+                <div class="edit-button " id="upload-button">
+                  <i class="fa fa-camera"></i> 
+              </div>
                 {% endfor %}
                  {% else %}
                  <i class="fa-solid fa-circle-user fs-4 "></i>
@@ -26,7 +32,8 @@
              {% for userdata in userdata %}
             
               <h4 id="person-name" class="m-0 py-1 px-3 text-center ">{{ userdata.Name }} </h4>
-             
+              <input type="file" id="image-input">
+              {% comment %} <button id="upload-button">Upload Image</button> {% endcomment %}
                 <p class="px-3 m-0 text-center edit-profile"><i class="fa-solid fa-pen-to-square icon"></i>edit profile</p>
               
               <p class="px-3 m-0 py-1"><i class="fa-solid fa-envelope icon"></i>{{ email }}</p>
@@ -54,11 +61,11 @@
           </div>
 
           <div class="active-books  w-50 py-4 rounded-4 shadow shadow-5" id="active-books">
-            <p id="active_books" class="fw-bold fs-4">0</p>
+            <p id="active_books" class="fw-bold fs-4">{{activebooks_count}}</p>
             <h4>ACTIVE BOOKS</h4>
           </div>
           <div class="booked-books w-50 py-4 rounded-4 shadow shadow-5" id="booked-books">
-            <p id="booked_books" class="fw-bold fs-4">0</p>
+            <p id="booked_books" class="fw-bold fs-4">{{bookedbooks_count}}</p>
             <h4>BOOKED BOOK</h4>
           </div>
         </div>
@@ -69,61 +76,78 @@
           <div class="col-md-6">
             <form action="" method="post">
               {% csrf_token %}
-             {{ userform.as_p }}
-             <h1>My Map</h1>
-             <div id="map" class="my-1"></div>
-             
-             <input type="submit" value="submit" class="btn btn-success my-1 submitbutton " > 
+              {{ userform.Name.label_tag }}<p class='my-2'></p> {{ userform.Name }}<p class='my-2'></p>
+              {{ userform.Phone_Number.label_tag }}<p class='my-2'></p> {{ userform.Phone_Number }}<p class='my-2'></p>
+              {{ userform.latitude.label_tag }}<p class='my-2'></p> {{ userform.latitude }}<p class='my-2' disabled ></p>
+              {{ userform.longitude.label_tag }}<p class='my-2'></p> {{ userform.longitude }}<p class='my-2'></p>
+              {{ userform.Address.label_tag }}<p class='my-2'></p> {{ userform.Address }}<p class='my-2'></p>
+             <h1>Please select the appropriate location on the map</h1>
+             <div id="profile-map" class="my-1" ></div>
+             <input type="button" value="Save change" class="btn btn-success my-1 save-change-button " > 
            </form>
            </div>
           </div>
          </div>
-       </div>
+     
+
+
+
+
        <div class="form-container" id="book-form-container">
         <div class="row ">
-         <div class="col-md-6">
+         <div class=" col-md-6 pt-4 mt-5 px-5">
            <form action="" method="post">
              {% csrf_token %}
-             {{ bookform.title.label_tag }} {{ bookform.title }}<br>
-             {{ bookform.description.label_tag }} {{ bookform.description }}<br>
-             {{ bookform.category.label_tag }} {{ bookform.category }}<br>
-             {{ bookform.original_price.label_tag }} {{ bookform.original_price }}<br>
-             {{ bookform.selling_price.label_tag }} {{ bookform.selling_price }}<br>
+             {{ bookform.title.label_tag }}<p class='my-2'></p> {{ bookform.title }}<p class='my-2'></p>
+             {{ bookform.description.label_tag }}<p class='my-2'></p> {{ bookform.description }} <p class='my-2'><p>
+             {{ bookform.category.label_tag }}<p class='my-2'></p> {{ bookform.category }} <p class='my-2'></p>
+             {{ bookform.original_price.label_tag }}<p class='my-2'></p> {{ bookform.original_price }} <p class='my-2'></p>
+             {{ bookform.selling_price.label_tag }} <p class='my-2'></p>{{ bookform.selling_price }} <p class='my-2'></p>
              <!-- Display the uploaded image -->
-             {{ bookform.image.label_tag }}  {{ bookform.image }}<br>
-             <img id="image-preview" src="" alt="Image Preview" width="100">
-            <input type="submit" value="submit" class="btn btn-success my-1 submitbutton " > 
+             {{ bookform.image.label_tag }}<p class='my-2'></p>  {{ bookform.image }} <p class='my-2'></p>
+             <img id="image-preview" src="" alt="Image Preview" width="100"><p class='my-2'></p>
+            <input type="submit" value="submit" class="btn btn-success my-2 submitbutton " > 
           </form>
           </div>
-          <div class="col-md-6">
-            {{ bookform.condition.label_tag }} {{ bookform.condition }}<br>
-            {{ bookform.latitude.label_tag }} {{ bookform.latitude }}<br>
-            {{ bookform.longitude.label_tag }} {{ bookform.longitude }}<br>
-            <h1>Click on the map to select the location</h1>
-            <div id="bookmap" style="height: 500px;width: 500px;"></div>
+          <div class="col-md-6  px-3">
+            {{ bookform.condition.label_tag }}<p class='my-2' ></p> {{ bookform.condition }} <p class='my-2'></p>
+            {{ bookform.latitude.label_tag }} <p class='my-2'></p>{{ bookform.latitude }} <p class='my-2'></p>
+            {{ bookform.longitude.label_tag }}<p class='my-2'></p> {{ bookform.longitude }} <p class='my-2'></p>
+            <h3> select  your location</h3>
+            <div id="book-map" style="height: 400px;width: 500px;"></div>
           </div>
          </div>
         </div>
       </div>
     <section>
        {% comment %} code for the active book {% endcomment %}
-       <div class="container " id="active-books-container">
-        
+       <div class="container" id="active-books-container" >
+       <div class ="row" id ="active-books-row"></div>
         </div>
       </section>
   </section>
 
   {% comment %} code for the booked book  {% endcomment %}
-  <div class="container" id="booked-book-container">
-    aklsjfljsfknjfnjnfjadsnjs
-
-
-    jsdlkjdks
+  <div class="container py-3" id="booked-book-container">
+    <table id="data-table" class="py-3">
+      <thead>
+          <tr>
+              <th>Title</th>
+              <th>Seller</th>
+              <th>Contact No</th>
+              <th>location</th>
+              <th>Price</th>
+              <th>Booked Status</th>
+              <th>Contact Seller</th>
+          </tr>
+      </thead>
+      <tbody></tbody>
+  </table>
+  
   </div>
 
   <!-- popup section -->
   <section>
-
     <div class="popup-wrapper">
       <div class="popup">
         <div class="close fw-bold fs-4">
@@ -141,27 +165,119 @@
     </div>
   </section>
 
+  {% comment %} popup section for the profile picture change  {% endcomment %}
+
+  <section>
+
+    <div class="edit-profile-popup-wrapper">
+      <div class="edit-profile-popup">
+        <div class="edit-profile-close fw-bold fs-4">
+          x
+        </div>
+        <div class="edit-profile-popup-content">
+          <div class=" user-photo-container bg-white text-dark shadow shadow-2" >
+            <div class="user-photo  ">
+              {% if userdata %}
+               {% for userdata in userdata %}
+                <img src="{{ userdata.Profile_photo.url }}"  alt="" >
+                {% endfor %}
+                 {% endif  %}
+            </div> 
+          </div>
+            <button class="edit-profile-submit-btn rounded-3" 
+            >Upload Image</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% comment %} code for the chat bot {% endcomment %}
+<section>
+  <div class="container" >
+  <div class="chat-container " id="chat-container" >
+        <div class="chat-content p-2">
+            <div class="row">
+
+                <div class="col-md-6">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa, modi.
+                </div>
+                <div class="col-md-6">
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus perferendis facere quibusdam ex,
+                    maiores sapiente? Consequatur numquam reiciendis commodi magni, rem, ut deleniti aperiam
+                    repellendus quos quidem praesentium cumque at!
+                </div>
+            </div>
+            <div class="write-message ms-2" >
+                
+                    <textarea name="message" id="message" cols="30" rows="2" id="message" >
+                    </textarea>
+                    <button type="submit" class="btn bg-success" id="message-send-button">sent</button>
+               
+            </div>
+        </div>
+    </div>
+    
+</div>
+</section>
+
+
+
 
 
    {%  if userdata %}
    {% for userdata in userdata %} 
       <script>
-  
      document.getElementById("id_Name").value = "{{ userdata.Name }}"
      document.getElementById("id_Phone_Number").value = {{ userdata.Phone_Number }} 
      document.getElementById("id_Address").value = "{{ userdata.Address }}"
-     
      document.getElementById("id_latitude").value = {{ userdata.latitude }}
      document.getElementById("id_longitude").value = {{userdata.longitude}}
-      {% comment %} document.getElementById("id_Register_date").value = {{ user.Register_date}}       {% endcomment %}
+     var profileMap = L.map("profile-map").setView([28.26689, 83.96851], 13);
+     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+       maxZoom: 19,
+       attribution:
+         '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+     }).addTo(profileMap);
+     profileMap.on ("click", async function (e) {
+       var marker = new L.marker([e.latlng.lat, e.latlng.lng]).addTo(profileMap);
+       async function getAddressFromCoordinates(lat, lng) {
+        var url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
+        try {
+          const response = await fetch(url);
+          const data =  await response.json();
+          const address = data.display_name;
+          return address;
+        } catch (error) {
+          console.error("Error:", error);
+          return null; // Return a default value or handle the error in your specific way
+        }
+      }
+      
+      var lat = document.getElementById("id_latitude");
+      lat.value = e.latlng.lat;
+      var lng = document.getElementById("id_longitude");
+      lng.value = e.latlng.lng;
+      const address= await getAddressFromCoordinates(e.latlng.lat, e.latlng.lng)
+      var trimmedData = address.substring(0, address.lastIndexOf(",")).trim();
+        var trimmedData = trimmedData
+          .substring(0, trimmedData.lastIndexOf(","))
+          .trim();
+        var trimmedData = trimmedData
+          .substring(0, trimmedData.lastIndexOf(","))
+          .trim();
+
+      var Address = document.getElementById("id_Address").value=trimmedData;
+     
+    });
+     
      </script>
      {% endfor %}
      {% endif %}
 
      {% block javascript %}
-     <script src="{% static 'userapp/js/profile.js'%}"></script>
+     <script type="module" src="{% static 'userapp/js/profile.js'%}"></script>
+     <script type="module" src="{% static 'chatapp/js/chatapp.js'%}"></script>
 {% endblock javascript%}
-
   {% endblock content %}
 
  

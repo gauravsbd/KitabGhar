@@ -29,4 +29,6 @@ class chatView(View):
        return JsonResponse(response)
 
     def post(self,request):
+        print("done")
+        print(request.POST.get("booked_id"))
         pass

@@ -208,11 +208,12 @@
                 </div>
             </div>
             <div class="write-message ms-2" >
-                
+                <form >
+                  {% csrf_token %}
                     <textarea name="message" id="message" cols="30" rows="2" id="message" >
                     </textarea>
                     <button type="submit" class="btn bg-success" id="message-send-button">sent</button>
-               
+                  </form>
             </div>
         </div>
     </div>

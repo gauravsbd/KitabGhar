@@ -4,6 +4,8 @@ from .models import Chatmodel
 from django.views import View
 from django.db.models import Q
 from django.http import JsonResponse
+from datetime import datetime
+from bookinfo.models import Bookedmodel
 
 # Create your views here.
 class chatView(View):
@@ -22,13 +24,22 @@ class chatView(View):
                chatNotification=chatNotification+1
        response={
            "conversation":conversation,
-           "user_id":request.user.id,\
+           "user_id":request.user.id,
            "chatNotification":chatNotification
        }
        print(response)
        return JsonResponse(response)
 
     def post(self,request):
+        booked_id=request.POST.get("booked_id")
+        bookobj=Bookedmodel.objects.get(id=booked_id)
+        message=request.POST.get("message")
+        obj=Chatmodel()
+        obj.booked_id=bookobj
+        obj.message=message
+        obj.sender_id=request.user
+        obj.date_time=datetime.now()
+        obj.view_status=None
+        obj.save()
         print("done")
-        print(request.POST.get("booked_id"))
-        pass
+        return JsonResponse({"data":"done"})

@@ -3,9 +3,9 @@
 {% block content%}
 {% load static %}
 <style>
-  #map{
-    height: 300px;
-    width: 200px;
+  #edit-book-map{
+    height: 400px;
+    width: 400px;
   }
 </style>
 
@@ -48,7 +48,8 @@
     
     <!-- Step 3 -->
     <div class="step col-md-6 my-3" id="step3" style="display: none;">
-      {{ bookform.condition.label_tag }} {{ bookform.condition }} 
+      {{ bookform.condition.label_tag }} {{ bookform.condition }}
+      {{ bookform.location.label_tag }} {{ bookform.location }}  
       {{ bookform.latitude.label_tag }} {{ bookform.latitude }} 
       {{ bookform.longitude.label_tag }} {{ bookform.longitude }} 
       <h3> Select your location </h3>
@@ -68,7 +69,75 @@
     
 </div>
 {% block javascript %}
-<script src="{% static 'bookinfo/js/book_view.js'%}"></script>
+
+<script>
+ 
+
+  var bookMap = L.map("edit-book-map").setView([28.26689, 83.96851], 13);
+  var marker = null;
+     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+       maxZoom: 19,
+       attribution:
+         '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+     }).addTo(bookMap);
+  bookMap.on("click", async function (e) {
+    if (marker !== null) {
+      bookMap.removeLayer(marker);
+    }
+
+    marker = new L.marker([e.latlng.lat, e.latlng.lng]).addTo(bookMap);
+
+ 
+    var lat = document.getElementById("id_latitude");
+    lat.value = e.latlng.lat;
+    var lng = document.getElementById("id_longitude");
+    lng.value = e.latlng.lng;
+    var user = document.getElementById("id_seller");
+    var address =  await getAddressFromCoordinates(e.latlng.lat, e.latlng.lng)
+    var trimmedData = address.substring(0, address.lastIndexOf(",")).trim();
+        var trimmedData = trimmedData
+          .substring(0, trimmedData.lastIndexOf(","))
+          .trim();
+        var trimmedData = trimmedData
+          .substring(0, trimmedData.lastIndexOf(","))
+          .trim();
+
+
+    var location = document.getElementById("id_location");
+    location.value=trimmedData
+    user.value = "{{request.user.username}}";
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1; // Note: Month is zero-based, so we add 1
+    var day = date.getDate();
+    var formattedDate =
+      year +
+      "-" +
+      month.toString().padStart(2, "0") +
+      "-" +
+      day.toString().padStart(2, "0");
+      var added_date = document.getElementById("id_added_date");
+      added_date.value = formattedDate;
+    });
+
+    async function getAddressFromCoordinates(lat, lng) {
+      
+      var url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
+      try {
+        const response = await fetch(url);
+        const data =  await response.json();
+        const address = data.display_name;
+        
+        return address;
+      } catch (error) {
+        console.error("Error:", error);
+        return null; // Return a default value or handle the error in your specific way
+      }
+    }
+    
+  </script>
+  <script src="{% static 'bookinfo/js/book_post.js'%}"></script>
+
 {% endblock javascript %}
 {% endblock content%}
  

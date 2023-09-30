@@ -210,7 +210,7 @@
             <div class="write-message ms-2" >
                 <form >
                   {% csrf_token %}
-                    <textarea name="message" id="message" cols="30" rows="2" id="message" >
+                    <textarea name="message" id="message" cols="30" rows="2"  >
                     </textarea>
                     <button type="submit" class="btn bg-success" id="message-send-button">sent</button>
                   </form>
@@ -237,10 +237,17 @@
      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
        maxZoom: 19,
        attribution:
-         '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-     }).addTo(profileMap);
+       '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      }).addTo(profileMap);
+      var latitude={{userdata.latitude}}
+      var longitude={{userdata.longitude}}
+      var marker = new L.marker([latitude, longitude]).addTo(profileMap);
      profileMap.on ("click", async function (e) {
-       var marker = new L.marker([e.latlng.lat, e.latlng.lng]).addTo(profileMap);
+      if(marker !== null)
+      {
+        profileMap.removeLayer(marker);
+      }
+        marker = new L.marker([e.latlng.lat, e.latlng.lng]).addTo(profileMap);
        async function getAddressFromCoordinates(lat, lng) {
         var url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
         try {

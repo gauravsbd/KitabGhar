@@ -266,18 +266,7 @@ bookedBookButton.addEventListener("click", () => {
 
   // code for reverse geo encoding
   let cancelButton;
-  async function getAddressFromCoordinates(lat, lng) {
-    var url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      const address = data.display_name;
-      return address;
-    } catch (error) {
-      console.error("Error:", error);
-      return null; // Return a default value or handle the error in your specific way
-    }
-  }
+  
 
   $.ajax({
     type: "GET",
@@ -323,11 +312,12 @@ bookedBookButton.addEventListener("click", () => {
         var priceCell = row.insertCell(4);
         var bookedStatusCell = row.insertCell(5);
         var contactSellerCell = row.insertCell(6);
-
+       
         titleCell.textContent = item.title;
         sellerCell.textContent = item.seller;
         contactCell.textContent = item.contact_no;
         priceCell.textContent = item.price;
+        addressCell.textContent=item.location
         contactSellerCell.appendChild(chatButton);
         if (item.booked_status) {
           bookedStatusCell.appendChild(disabledCancelButton);
@@ -339,18 +329,6 @@ bookedBookButton.addEventListener("click", () => {
           });
         }
         //= item.booked_status ? 'Booked' : 'Not Booked';
-        var address = await getAddressFromCoordinates(
-          item.latitude,
-          item.longitude
-        );
-        var trimmedData = address.substring(0, address.lastIndexOf(",")).trim();
-        var trimmedData = trimmedData
-          .substring(0, trimmedData.lastIndexOf(","))
-          .trim();
-        var trimmedData = trimmedData
-          .substring(0, trimmedData.lastIndexOf(","))
-          .trim();
-        addressCell.textContent = trimmedData;
       });
     },
   });

@@ -34,6 +34,7 @@ class book_form(View):
         category = fm.cleaned_data['category']
         latitude= fm.cleaned_data['latitude']
         longitude= fm.cleaned_data['longitude']
+        location=fm.cleaned_data['location']
         added_date=date.today()
         image=fm.cleaned_data['image']
         seller=request.user
@@ -45,6 +46,7 @@ class book_form(View):
         bk.category=category
         bk.latitude=latitude
         bk.longitude=longitude
+        bk.location=location
         bk.added_date=added_date
         bk.image=image
         bk.seller=seller
@@ -202,6 +204,7 @@ class booked_books(View):
               "contact_no":user_obj.Phone_Number,
               "latitude":book_obj.latitude,
               "longitude":book_obj.longitude,
+              "location":book_obj.location,
               "price":book_obj.selling_price,
               "booked_status":booked_obj.booked_status,
               "booked_id":booked_obj.id

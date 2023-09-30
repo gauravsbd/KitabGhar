@@ -26,18 +26,19 @@ messageSendButton.addEventListener("click",(event)=>{
     event.preventDefault();
     const sendButton=document.getElementById("message-send-button")
     const booked_id=sendButton.getAttribute("pid")
-    alert(booked_id)
-    alert("message sent")
+    const message=document.getElementById("message").value
+    
     $.ajax({
         type:"post",
       url:"/send-chat/",
      data:{
     booked_id:booked_id,
+    message:message,
     csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()
      },
      success:(data)=>{
          
-       console.log(data)
+       alert(data.data)
          
      }
    })
@@ -45,7 +46,5 @@ messageSendButton.addEventListener("click",(event)=>{
 
 
 })
-
-
-
+  
 export{chatFunction}

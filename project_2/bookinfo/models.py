@@ -22,6 +22,7 @@ class Bookinfo(models.Model):
     image = models.ImageField( upload_to='books/images',max_length=None)
     latitude = models.FloatField(default=None)
     longitude = models.FloatField(default=None)
+    location=models.CharField(max_length=200,default="Gharmi, Pokhara-16, Pokhara, Kaski")
     added_date = models.DateField(default=None)
     def __str__(self):
      return self.title

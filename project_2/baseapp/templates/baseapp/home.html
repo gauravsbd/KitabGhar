@@ -1,7 +1,6 @@
 {% extends 'baseapp/base.html' %}
 {% block content%}
 
-
 <section class="bg-black">
     <div class="container">
         <div class="slider-wrapper">
@@ -15,7 +14,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="col2 col-lg-6">
+                <div class="col2 col-lg-6 ">
                     <div class="contain px-3 py-3 rounded border shadow-lg">
                         <h3>Which books are you looking for?</h3>
                         <hr>
@@ -36,56 +35,57 @@
                                 {% endif %}
                             </div>
                            <div class="my-3 text-center">
-                            <input type="submit" class="btn btn-success btn-md w-100">
+                            <input type="submit" class="btn btn-success btn-lg">
                            </div>
                         </form> 
-                    </div>
-                    
+                    </div>      
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-<!-- Letest Books -->
-{% for filter_books in filter_books %}
+ 
+{% for category_data in filter_books %}
 <section class="latest-books">
-   
-            {% for book in filter_books %}
-            <div class="container">
-                <div class="row">
-                    
-                    <div class="see-all">
-                        <h2 class="m-0">{{book.category}}</h2>
-                       <a href="{% url 'books' book.category %}"> <button type="button" class="btn more-books " id='see-button'>See All</button></a>
-                    </div>
-                    <div class="underline"></div>
-                    {% comment %} <div class="wrapper">
-                    <i id="left" class="fa-solid fa-angle-left"></i>
-                    <div class="crousel"> {% endcomment %}
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-12 py-5 card-col ">
-                      <a  href="{% url 'book_detail' book.id %}"> 
-                         <div class="card shadow-lg book-item h-100" > 
-                                <img src="{{ book.image.url }}" class="card-img-top fixed-image " alt="..." />
-                            <div class="card-body text-center  ">
-                                <span class="category px-4">{{ book.category}}</span>
-                                <p class="fw-bold my-0 py-1">{{book.title}}</p>
-                                <p class="my-0 py-1">{{book.original_price}}</p>
-                                <p class=" ">{{book.selling_price}}<span>(Fixed/Negotiable)</span></p>
-                                <p>
-                                    <i class="fa-sharp fa-solid fa-location-dot px-2"></i>Location
-                                </p>
-                            </div>
-                        </a>
+    <div class="container">
+        <div class="see-all">
+            <h2 class="m-0">{{ category_data.category }}</h2>
+            <a href="{% url 'books' category_data.category %}">
+                <button type="button" class="btn more-books" id="see-button">See All</button>
+            </a>
+        </div>
+        <div class="underline"></div>
+        
+        <div class="row">
+            {% for book in category_data.books %}
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 py-2 card-col">
+                <a href="{% url 'book_detail' book.id %}">
+                    <div class="card shadow-lg book-item h-100">
+                        <div class="img-div">
+                            <img src="{{ book.image.url }}" class="card-img-top fixed-image object-fit py-1 px-1 " alt="..." />
                         </div>
-                        {% comment %} <i id="right" class="fa-solid fa-angle-right"></i>
+                        <div class="card-body text-center my-1 py-0">
+                            <span class="category px-4 py-0">{{ book.category }}</span>
+                            <p class="fw-bold my-0 py-1">{{ book.title }}</p>
+                            <p class="my-0 py-0">{{ book.original_price }}</p>
+                            <p class="my-1">{{ book.selling_price }}<span class="py-0">(Fixed/Negotiable)</span></p>
+                             <span>
+                                <i class="fa-sharp fa-solid fa-location-dot px-2 py-0"></i>Location
+                             </span>
+                        </div>
                     </div>
-                </div> {% endcomment %}
-                </div>
-                    {% endfor %}
-                      
-</section> 
+                </a>
+            </div>
+            {% endfor %}
+        </div> 
+    </div>
+  
+</section>
 {% endfor %}
-</div>
+{% endblock content %}
 
-{% endblock content%}
+
+
+
+ 
+

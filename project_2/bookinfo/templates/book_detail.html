@@ -16,7 +16,7 @@
             <div class="user-photo ">
 
               <img src="{{ seller.Profile_photo.url }}" alt=" " id="user-pic">
-              <!-- <i class="fa-solid fa-circle-user "></i> -->
+               
             </div>
             {% endfor %}
 
@@ -34,9 +34,9 @@
             </div>
           </div>
           <div class="col-lg-3 col-md-3   px-2 contact-links d-flex justify-content-center ">
-            <div class="contain  text-center contact-links-inner w-50">
-              <button type="button" class="btn py-2 email"><i class="fa-solid fa-envelope px-1"></i>EMAIL</button>
-              <button type="button" class="btn contact  my-1 py-2"><i
+            <div class="contain  text-center contact-links-inner w-100">
+              <button type="button" class="btn py-2 email w-100"><i class="fa-solid fa-envelope px-1"></i>EMAIL</button>
+              <button type="button" class="btn contact my-1 py-2 w-100"><i
                   class="fa-solid fa-mobile-screen-button px-1"></i>{{ seller.Phone_Number}}
               </button>
 
@@ -53,21 +53,21 @@
             </div>
           </div>
 
-          <div class="description col-lg-6 col-md-6 ">
+          <div class="description col-lg-6 col-md-6">
             <h5 class="text-center "><b>Description</b></h5>
             <div class="description-wrapper">
-              <div>
+              <div class="px-1">
                 <p><b>Price: </b><span id="price">{{data.selling_price}}</span></p>
                 <p><b>Condition:</b> <span id="{{data.condition}}">{{data.condition}}</span></p>
                 <p><b>Location:</b> <span id="location">{{seller.Address}}</span></p>
                 <span  id ="book-id" attr={{data.id}}></span>
               </div>
-              <div>
+              <div class="px-1">
                 <p><b>Date: </b><span id="date">{{data.added_date}}</span></p>
                 <p><b>Original Price:</b> <span id="original_price">{{data.original_price}}</span></p>
 
               </div>
-              <div id="map" style="height: 500px;width: 500px;"></div>
+              <div class="px-5" id="map" style="height: 500px;width: 500px;"></div>
 
               <script>
                 var map = L.map('map').setView([28.26689, 83.96851], 13);

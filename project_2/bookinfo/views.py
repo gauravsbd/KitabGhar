@@ -6,13 +6,11 @@ from django.views import View
 from userapp.models import userinfomodel
 from .models import Cateogory,Bookinfo,Bookedmodel
 from datetime import date
-from django.contrib.auth.models import User
-import json
 from django.forms.models import model_to_dict
 import datetime
 from searchapp.models import searchmodel
 from fuzzywuzzy import fuzz
-from fuzzywuzzy import process 
+ 
 
 class book_form(View):
     def get(self, request, ):

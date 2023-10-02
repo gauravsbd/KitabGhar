@@ -15,6 +15,8 @@ from django.http import JsonResponse
 from bookinfo.forms import editBookform
 from django.core.files.storage import default_storage
 from searchapp.models import searchmodel
+from datetime import datetime
+from bookinfo.models import Soldbookmodel
 
 #  Create your views here.
 def login_form(request):
@@ -63,8 +65,13 @@ class profile_view(View):
           #code for the bookedbooks count
           bookedbooks=Bookedmodel.objects.filter(buyer_id=request.user.id)
           bookedbooks_count=bookedbooks.count()
+
+          soldbookobj=Soldbookmodel.objects.filter(user_id=request.user.id)
+          soldbookcount=0
+          for soldbook in soldbookobj:
+              soldbookcount=soldbookcount+1
           
-          context={"email":email,"userform":fm,"bookform":bfm,"activebooks_count":activebooks_count,"bookedbooks_count":bookedbooks_count}
+          context={"email":email,"userform":fm,"bookform":bfm,"activebooks_count":activebooks_count,"bookedbooks_count":bookedbooks_count,"soldbooks_count":soldbookcount}
           return render(request,"profile.html",context)
 
           
@@ -86,17 +93,28 @@ def edit_profile(request):
         address=request.POST['address']
         longitude=request.POST['longitude']
         try:  
-           obj=userinfomodel.objects.get(user_id=request.user)
-           obj.Name = Name
-           obj.Phone_Number = Phone_Number
-           obj.Address=address
-           obj.latitude=latitude
-           obj.longitude=longitude
-           obj.save()
-           messages.success(request,'Profile edited successfully')
+            obj=userinfomodel.objects.get(user_id=request.user)
+            obj.Name = Name
+            obj.Phone_Number = Phone_Number
+            obj.Address=address
+            obj.latitude=latitude
+            obj.longitude=longitude
+            obj.save()
+             
         except userinfomodel.DoesNotExist:
-          
-          pass
+                user=User.objects.get(id=request.user.id)  
+                obj=userinfomodel()
+                obj.Name = Name
+                obj.Phone_Number = Phone_Number
+                obj.Address=address
+                obj.latitude=latitude
+                obj.longitude=longitude
+                obj.user=request.user
+                obj.Register_date=user.date_joined.date()
+                obj.save()
+                print("done")
+        messages.success(request,'Profile edited successfully')
+         
         data = {
                 'data': 'done'
         }

@@ -19,7 +19,7 @@ class userinfomodel(models.Model):
     Phone_Number = models.CharField(max_length=10)
     Address = models.CharField(max_length=100)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    Profile_photo = models.ImageField(upload_to=("user/images"),max_length=None)
+    Profile_photo = models.ImageField(upload_to=("user/images"),max_length=None,null=True)
     latitude = models.FloatField()
     longitude = models.FloatField()
     Register_date = models.DateField()

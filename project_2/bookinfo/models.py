@@ -27,12 +27,17 @@ class Bookinfo(models.Model):
     def __str__(self):
      return self.title
     
-
-
-    
+ 
 class Bookedmodel(models.Model):
    buyer_id=models.PositiveIntegerField()
    book_id=models.PositiveIntegerField()
    booked_request_date=models.DateField()
    booked_status=models.BooleanField(default=False)
    notification_status=models.BooleanField(default=None,null=True)
+
+class Soldbookmodel(models.Model):
+      user_id=models.ForeignKey(User,on_delete=models.CASCADE)
+      bookname=models.CharField(max_length=100)
+      postedduration=models.IntegerField()
+      sellingprice=models.DecimalField(max_digits=8, decimal_places=2)
+      buyername=models.CharField(max_length=100)

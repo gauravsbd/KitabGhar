@@ -9,6 +9,7 @@ from django.contrib.messages import get_messages
 #setting up the session value for the notification count 
 def set_session(request):
         if request.user.is_authenticated:
+            
             obj=searchmodel.objects.filter(user_id=request.user)
             obj=obj.exclude(notification_status=None)
             json_search_notification_data=[]
@@ -30,15 +31,15 @@ def set_session(request):
                 bookobj=Bookinfo.objects.get(id=obj.book_id)
                 if(bookobj.seller==request.user):
                     if(obj.booked_status==False):
-                    
-                        buyer=userinfomodel.objects.get(user_id=obj.buyer_id)
-                        pending_notification_data={
-                            "buyer_name":buyer.Name,
-                            "book_name":bookobj.title
-                        }
-                        if obj.notification_status is None:
-                           notification_count+=1
-                        json_pending_notification_data.append(pending_notification_data)   
+                        buyer=userinfomodel.objects.filter(user_id=obj.buyer_id)
+                        for buyer in buyer:
+                            pending_notification_data={
+                                "buyer_name":buyer.Name,
+                                "book_name":bookobj.title
+                            }
+                            if obj.notification_status is None:
+                              notification_count+=1
+                            json_pending_notification_data.append(pending_notification_data)   
             request.session["notification_count"]=notification_count
            
 

@@ -45,22 +45,22 @@
               </button> {% endcomment %}
              -->
              {% if request.user.is_authenticated %}
-             {% if userdata %}
-             {% for userdata in userdata %}
              <div class="d-flex ">
-                  <div class="user-image m-1 dropdown " id="header-user-image">
-                    <a class="" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                      aria-expanded="false">
-                      <i class="fa-solid fa-bell text-black m-1 fs-4" id="notification-button">
-                        {% if notification_count > 0 %}
-                        <span id="notification-count" class='notification-count'>{{notification_count}}</span>
-                        {% endif %}
-                      </i>
-                      <div class ="container" > 
-                        <ul class="dropdown-menu bg-white border- rounded-1 " id="notification-dropdown" aria-labelledby="navbarDropdown">
-                        </ul> 
-                      </div>
+               <div class="user-image m-1 dropdown " id="header-user-image">
+                 <a class="" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                 aria-expanded="false">
+                 <i class="fa-solid fa-bell text-black m-1 fs-4" id="notification-button">
+                   {% if notification_count > 0 %}
+                   <span id="notification-count" class='notification-count'>{{notification_count}}</span>
+                   {% endif %}
+                  </i>
+                  <div class ="container" > 
+                    <ul class="dropdown-menu bg-white border- rounded-1 " id="notification-dropdown" aria-labelledby="navbarDropdown">
+                    </ul> 
                   </div>
+                </div>
+                {% if userdata %}
+                {% for userdata in userdata %}
 
                      <div class="user-image m-1 dropdown " id="header-user-image">
                        <a class="" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"

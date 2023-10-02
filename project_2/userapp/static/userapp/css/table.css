@@ -3,18 +3,18 @@
     margin: auto;
 }
 
-#data-table {
+.data-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 
-#data-table th, #data-table td {
+.data-table th, .data-table td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
 }
 
-#data-table th {
+.data-table th {
     background-color: #f2f2f2;
 }

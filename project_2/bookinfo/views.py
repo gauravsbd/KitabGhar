@@ -1,10 +1,9 @@
 from django.shortcuts import render
 from .forms import Bookform
-from .models import Bookinfo
 from django.http import HttpResponse,JsonResponse,HttpResponseRedirect
 from django.views import View
 from userapp.models import userinfomodel
-from .models import Cateogory,Bookinfo,Bookedmodel
+from .models import Cateogory,Bookinfo,Bookedmodel,Soldbookmodel
 from datetime import date
 from django.contrib.auth.models import User
 import json
@@ -13,6 +12,11 @@ import datetime
 from searchapp.models import searchmodel
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process 
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib import messages
+
+
+
 
 class book_form(View):
     def get(self, request, ):
@@ -64,8 +68,15 @@ class book_form(View):
                   # code for the email send for user
                    print(f"email send for user {obj.user}")
                
-        return HttpResponseRedirect("/profile")  
+        return HttpResponseRedirect("/profile")
 
+@csrf_exempt     
+def delete_book(request):
+    id=request.POST.get("book_id")
+    bookobj=Bookinfo.objects.get(id=id)
+    # bookobj.delete()
+    messages.success(request,'Book deleted successfully ')
+    return JsonResponse({"data":id})
     
 class book_detail(View):
     def get(self, request, id):
@@ -137,7 +148,6 @@ class book_book(View):
 class activebooks(View):
     def get (self,request):
         activebooks_queryset = Bookinfo.objects.filter(seller_id=request.user.id)
- 
         booked_book_id=Bookedmodel.objects.values("book_id")
         id_list = [item['book_id'] for item in booked_book_id]
        
@@ -146,20 +156,27 @@ class activebooks(View):
         for book in activebooks_queryset:
     # Create a dictionary with the original attributes and the extra attribute
             id=book.id
+            
             if id in id_list:
-             
                 book_book=Bookedmodel.objects.get(book_id=id)
+                buyer_name=userinfomodel.objects.values("Name").get(user_id=book_book.buyer_id)
+                posted_date=Bookinfo.objects.values("added_date").get(id=id)
                 modified_book = {
                         'id':id,
                        'title': book.title,
-                       'image':book.image.url,
-                       'status':book_book.booked_status
+                       'buyer_name':buyer_name["Name"],
+                       'status':book_book.booked_status,
+                       'price':book.selling_price,
+                       'posted_date':book.added_date,
+                       'booked_id':book_book.id
                                   }
             else:
                 modified_book = {
                         'id':id,
                        'title': book.title,
-                       'image':book.image.url,
+                       'price':book.selling_price,
+                       'posted_date':book.added_date
+                      
                                   }
             modified_activebooks.append(modified_book)
         return JsonResponse(modified_activebooks, content_type='application/json', safe=False)
@@ -169,7 +186,7 @@ class Pending_books(View):
     def get(self,request):
         id=request.GET["book_id"]
         obj=Bookedmodel.objects.get(book_id=id)
-        obj.booked_status=True
+        obj.booked_status=False
         obj.save()
         data={
             "data":"done"
@@ -219,3 +236,46 @@ class cancel_book(View):
         obj.delete()
         return JsonResponse({"data":id},content_type="application/json",safe=False)      
            
+@csrf_exempt
+def sold_book(request):
+    if request.method=="POST":
+        book_id=request.POST.get("book_id")
+        bookobj=Bookinfo.objects.values("title","added_date","selling_price").get(id=book_id)
+        bookname=bookobj["title"]
+        addeddate=bookobj["added_date"]
+        selling_price=bookobj["selling_price"]
+        todaydate=datetime.date.today()
+        postedduration = todaydate - addeddate
+        postedduration=postedduration.days
+        buyerid=Bookedmodel.objects.values("buyer_id").get(book_id=book_id)
+        buyerid=buyerid["buyer_id"]
+        buyername=userinfomodel.objects.values("Name").get(user=buyerid)
+        buyername=buyername["Name"]
+        soldbookobj=Soldbookmodel()
+        soldbookobj.user_id=request.user
+        soldbookobj.bookname=bookname
+        soldbookobj.sellingprice=selling_price
+        soldbookobj.buyername=buyername
+        soldbookobj.postedduration=postedduration
+        soldbookobj.save()
+        bookobj=Bookinfo.objects.get(id=book_id)
+        bookedobj=Bookedmodel.objects.get(book_id=book_id)
+        # bookobj.delete()
+        # bookedobj.delete()
+        return JsonResponse({"data":'done'})
+
+    if request.method== "GET":
+        soldbookobj=Soldbookmodel.objects.filter(user_id=request.user.id)
+        soldbookdata=[]
+        for soldbook in soldbookobj:
+            soldbooljson={
+                "bookname":soldbook.bookname,
+                "postedduration":soldbook.postedduration,
+                "sellingprice":soldbook.sellingprice,
+                "buyername":soldbook.buyername
+            }
+            soldbookdata.append(soldbooljson)
+        return JsonResponse({"data":soldbookdata})    
+
+
+              

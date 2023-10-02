@@ -24,7 +24,11 @@
               </div>
                 {% endfor %}
                  {% else %}
-                 <i class="fa-solid fa-circle-user fs-4 "></i>
+                 {% comment %} <i class="fa-solid fa-circle-user fs-4 "></i> {% endcomment %}
+                 <img src="{% static 'userapp/Images/user_icon.png'%}"  alt="" >
+                <div class="edit-button " id="upload-button">
+                  <i class="fa fa-camera"></i> 
+                </div>
                 
               {% endif %}
             </div> 
@@ -56,7 +60,7 @@
        
         <div class="col-lg-6 col-12 book-status text-center ">
           <div class="sold-books w-50 py-4 fs-4 rounded-4 shadow shadow-5" id="sold-books">
-            <p id="sold_books" class="fw-bold">0</p>
+            <p id="sold_books" class="fw-bold">{{soldbooks_count}}</p>
             <h4>SOLD BOOKS</h4>
           </div>
 
@@ -119,17 +123,50 @@
          </div>
         </div>
       </div>
-    <section>
-       {% comment %} code for the active book {% endcomment %}
-       <div class="container" id="active-books-container" >
-       <div class ="row" id ="active-books-row"></div>
+
+
+      {% comment %} code for the active book {% endcomment %}
+      <div id="whole-active-books-container" class="container">
+      <section>
+       <div class="container py-3" id="active-books-container" >
+       <table id="active-book-table" class="py-3 data-table">
+         <thead>
+          <tr>
+            <th>Title</th>
+            <th>Posted date</th>
+            <th>Price</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+         </thead>
+         <tbody></tbody>
+       </table>
         </div>
       </section>
-  </section>
 
+
+     {% comment %} code for the pending books  {% endcomment %}
+     <section>
+      <div class="container py-3" id="pending-books-container" >
+        <table id="pending-book-table" class="py-3 data-table">
+          <thead>
+           <tr>
+             <th>Title</th>
+             <th>Posted date</th>
+             <th>Price</th>
+             <th>Buyer Name</th>
+             <th>Change Status</th>
+             <th>Contact Buyer</th>
+           </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+         </div>
+  </section>
+</div>
   {% comment %} code for the booked book  {% endcomment %}
   <div class="container py-3" id="booked-book-container">
-    <table id="data-table" class="py-3">
+    <table id="booked-data-table" class="py-3 data-table">
       <thead>
           <tr>
               <th>Title</th>
@@ -143,7 +180,22 @@
       </thead>
       <tbody></tbody>
   </table>
-  
+  </div>
+
+
+  {% comment %} code for the booked book  {% endcomment %}
+  <div class="container py-3" id="sold-books-container">
+    <table id="sold-data-table" class="py-3 data-table">
+      <thead>
+          <tr>
+              <th>Title</th>
+              <th>Posted Duration</th>
+              <th>Selling Price</th>
+              <th>Buyer Name</th>
+          </tr>
+      </thead>
+      <tbody></tbody>
+  </table>
   </div>
 
   <!-- popup section -->
@@ -225,62 +277,111 @@
 
 
 
-   {%  if userdata %}
-   {% for userdata in userdata %} 
-      <script>
+
+{%  if userdata %}
+{% for userdata in userdata %} 
+<script>
+  var profileMap = L.map("profile-map").setView([28.26689, 83.96851], 13);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution:
+    '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  }).addTo(profileMap);
+  
      document.getElementById("id_Name").value = "{{ userdata.Name }}"
      document.getElementById("id_Phone_Number").value = {{ userdata.Phone_Number }} 
      document.getElementById("id_Address").value = "{{ userdata.Address }}"
      document.getElementById("id_latitude").value = {{ userdata.latitude }}
      document.getElementById("id_longitude").value = {{userdata.longitude}}
-     var profileMap = L.map("profile-map").setView([28.26689, 83.96851], 13);
-     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-       maxZoom: 19,
-       attribution:
-       '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      }).addTo(profileMap);
       var latitude={{userdata.latitude}}
       var longitude={{userdata.longitude}}
       var marker = new L.marker([latitude, longitude]).addTo(profileMap);
-     profileMap.on ("click", async function (e) {
-      if(marker !== null)
-      {
-        profileMap.removeLayer(marker);
-      }
-        marker = new L.marker([e.latlng.lat, e.latlng.lng]).addTo(profileMap);
-       async function getAddressFromCoordinates(lat, lng) {
-        var url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
-        try {
-          const response = await fetch(url);
-          const data =  await response.json();
-          const address = data.display_name;
-          return address;
-        } catch (error) {
-          console.error("Error:", error);
-          return null; // Return a default value or handle the error in your specific way
-        }
-      }
-      
-      var lat = document.getElementById("id_latitude");
-      lat.value = e.latlng.lat;
-      var lng = document.getElementById("id_longitude");
-      lng.value = e.latlng.lng;
-      const address= await getAddressFromCoordinates(e.latlng.lat, e.latlng.lng)
-      var trimmedData = address.substring(0, address.lastIndexOf(",")).trim();
-        var trimmedData = trimmedData
-          .substring(0, trimmedData.lastIndexOf(","))
-          .trim();
-        var trimmedData = trimmedData
-          .substring(0, trimmedData.lastIndexOf(","))
-          .trim();
 
-      var Address = document.getElementById("id_Address").value=trimmedData;
-     
-    });
-     
-     </script>
-     {% endfor %}
-     {% endif %}
+profileMap.on ("click", async function (e) {
+ if(marker !== null)
+ {
+   profileMap.removeLayer(marker);
+ }
+    marker = new L.marker([e.latlng.lat, e.latlng.lng]).addTo(profileMap);
+  async function getAddressFromCoordinates(lat, lng) {
+   var url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
+   try {
+     const response = await fetch(url);
+     const data =  await response.json();
+     const address = data.display_name;
+     return address;
+   } catch (error) {
+     console.error("Error:", error);
+     return null; // Return a default value or handle the error in your specific way
+   }
+ }
+ 
+ var lat = document.getElementById("id_latitude");
+ lat.value = e.latlng.lat;
+ var lng = document.getElementById("id_longitude");
+ lng.value = e.latlng.lng;
+ const address= await getAddressFromCoordinates(e.latlng.lat, e.latlng.lng)
+ var trimmedData = address.substring(0, address.lastIndexOf(",")).trim();
+   var trimmedData = trimmedData
+     .substring(0, trimmedData.lastIndexOf(","))
+     .trim();
+   var trimmedData = trimmedData
+     .substring(0, trimmedData.lastIndexOf(","))
+     .trim();
+
+ var Address = document.getElementById("id_Address").value=trimmedData;
+});
+</script>
+      {% endfor %}
+      {%  else %}
+      <script>
+        var profileMap = L.map("profile-map").setView([28.26689, 83.96851], 13);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution:
+    '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  }).addTo(profileMap);
+        var marker = null;
+        profileMap.on ("click", async function (e) {
+         
+        if(marker !== null)
+        {
+          profileMap.removeLayer(marker);
+        }
+        marker = new L.marker([e.latlng.lat, e.latlng.lng]).addTo(profileMap);
+        async function getAddressFromCoordinates(lat, lng) {
+           var url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
+           try {
+             const response = await fetch(url);
+            const data =  await response.json();
+            const address = data.display_name;
+            return address;
+          } catch (error) {
+            console.error("Error:", error);
+            return null; // Return a default value or handle the error in your specific way
+          }
+        }
+        
+        var lat = document.getElementById("id_latitude");
+        lat.value = e.latlng.lat;
+        var lng = document.getElementById("id_longitude");
+        lng.value = e.latlng.lng;
+        const address= await getAddressFromCoordinates(e.latlng.lat, e.latlng.lng)
+        var trimmedData = address.substring(0, address.lastIndexOf(",")).trim();
+        var trimmedData = trimmedData
+        .substring(0, trimmedData.lastIndexOf(","))
+        .trim();
+        var trimmedData = trimmedData
+        .substring(0, trimmedData.lastIndexOf(","))
+        .trim();
+        
+        var Address = document.getElementById("id_Address").value=trimmedData;
+      });
+      
+        
+      </script>
+      {% endif %}
+    
 
      {% block javascript %}
      <script type="module" src="{% static 'userapp/js/profile.js'%}"></script>

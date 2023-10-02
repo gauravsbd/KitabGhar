@@ -27,6 +27,7 @@ def form_view(request):
             filter_books.append(books)
         form=searchform()   
         context ={"filter_category":filter_category,"filter_books":filter_books,"form":form}
+       
     return render(request,"baseapp/home.html",context)
 
 def about_us(request):

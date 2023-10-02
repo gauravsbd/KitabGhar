@@ -3,6 +3,8 @@ let editProfileContainer = document.querySelector("#edit-form-container");
 let activeBook = document.querySelector("#active-books");
 let activeBookContainer = document.querySelector("#active-books-container");
 let editBookContainer = document.querySelector("#book-form-container");
+let wholeActiveBookContainer = document.querySelector("#whole-active-books-container");
+let soldBookContainer=document.querySelector("#sold-books-container")
 let bookedBookContainer = document.getElementById("booked-book-container");
 let restoreButton;
 let soldButton;
@@ -10,106 +12,100 @@ let editButton;
 let pendingButton;
 bookedBookContainer.style.display = "none";
 editProfileContainer.style.display = "none";
-activeBookContainer.style.display = "none";
 editBookContainer.style.display = "none";
+wholeActiveBookContainer.style.display = "none";
+soldBookContainer.style.display="none";
+
 editProfile.addEventListener("click", () => {
   bookedBookContainer.style.display = "none";
-  activeBookContainer.style.display = "none";
+  wholeActiveBookContainer.style.display = "none";
   editBookContainer.style.display = "none";
+  soldBookContainer.style.display="none";
   editProfileContainer.style.display = "block";
   const element = document.getElementById("edit-form-container");
   element.scrollIntoView();
 });
 
 //code for the active books
-activeBook.addEventListener("click", () => {
-  const activeBookrow = document.getElementById("active-books-row");
-  while(activeBookrow.firstChild){
-    activeBookrow.removeChild(activeBookrow.firstChild)
-  }
-  $.ajax({
-    type: "GET",
-    url: "/activebooks",
-    data: {},
-    success: function (data) {
-      data.forEach((activebook) => {
-        const cardrow = document.createElement("div");
-        cardrow.className = "row";
-        const cardCol = document.createElement("div");
-        cardCol.className = "col-lg-3 col-md-4 col-sm-6 col-12 py-5 card-col";
 
-        const card = document.createElement("div");
-        card.className = "card shadow-lg book-item overflow-hidden h-100";
+//   const cardrow = document.createElement("div");
+//   cardrow.className = "row";
+//   const cardCol = document.createElement("div");
+//   cardCol.className = "col-lg-3 col-md-4 col-sm-6 col-12 py-5 card-col";
 
-        const buttonContainer = document.createElement("div");
-        buttonContainer.className = "py-2 mx-3 button-container";
+//   const card = document.createElement("div");
+//   card.className = "card shadow-lg book-item overflow-hidden h-100";
 
-        const img = document.createElement("img");
+//   const buttonContainer = document.createElement("div");
+//   buttonContainer.className = "py-2 mx-3 button-container";
 
-        const url = activebook.image;
-        img.src = url;
-        img.className = "card-img-top object-fit-cover w-100 h-50 px-1 py-1";
-        img.alt = "Book image";
+//   const img = document.createElement("img");
 
-        const title = document.createElement("span");
-        title.className = "fw-bold text-center py-1";
-        title.textContent = activebook.title;
+//   const url = activebook.image;
+//   img.src = url;
+//   img.className = "card-img-top object-fit-cover w-100 h-50 px-1 py-1";
+//   img.alt = "Book image";
 
-        editButton = document.createElement("button");
-        editButton.className =
-          "btn edit-books my-2 w-100 border border-r btn-sm";
-        editButton.type = "button";
-        editButton.setAttribute("pid", activebook.id);
-        editButton.textContent = "Edit";
-        editButton.addEventListener("click", handleEditButtonClick);
+//   const title = document.createElement("span");
+//   title.className = "fw-bold text-center py-1";
+//   title.textContent = activebook.title;
 
-        pendingButton = document.createElement("button");
-        pendingButton.className ="btn btn-sm pending-book-request my-0 w-100 border border-r";
-        pendingButton.type = "button";
-        pendingButton.setAttribute("pid", activebook.id);
-        pendingButton.textContent = "Pending";
-        pendingButton.addEventListener("click", handlePendingButtonClick);
+//   editButton = document.createElement("button");
+//   editButton.className =
+//     "btn edit-books my-2 w-100 border border-r btn-sm";
+//   editButton.type = "button";
+//   editButton.setAttribute("pid", activebook.id);
+//   editButton.textContent = "Edit";
+//   editButton.addEventListener("click", handleEditButtonClick);
 
-        restoreButton = document.createElement("button");
-        restoreButton.className =
-          "col btn btn-sm restore-book-request my-0 mx-1 border border-r";
-        restoreButton.type = "button";
-        restoreButton.setAttribute("pid", activebook.id);
-        restoreButton.textContent = "Restore";
-        restoreButton.addEventListener("click", handleRestoreButtonClick);
+//   pendingButton = document.createElement("button");
+//   pendingButton.className ="btn btn-sm pending-book-request my-0 w-100 border border-r";
+//   pendingButton.type = "button";
+//   pendingButton.setAttribute("pid", activebook.id);
+//   pendingButton.textContent = "Pending";
+//   pendingButton.addEventListener("click", handlePendingButtonClick);
 
-        soldButton = document.createElement("button");
-        soldButton.className =
-          "col btn btn-sm sold-book-request my-0 mx-1 border border-r";
-        soldButton.type = "button";
-        soldButton.setAttribute("pid", activebook.id);
-        soldButton.textContent = "Sold";
+//   restoreButton = document.createElement("button");
+//   restoreButton.className =
+//     "col btn btn-sm restore-book-request my-0 mx-1 border border-r";
+//   restoreButton.type = "button";
+//   restoreButton.setAttribute("pid", activebook.id);
+//   restoreButton.textContent = "Restore";
+//   restoreButton.addEventListener("click", handleRestoreButtonClick);
 
-        card.appendChild(img);
-        card.appendChild(title);
-        buttonContainer.appendChild(editButton);
-        if (activebook.status == false) {
-          buttonContainer.removeChild(editButton);
-          buttonContainer.appendChild(pendingButton);
-        }
-        if (activebook.status == true) {
-          buttonContainer.removeChild(editButton);
-          buttonContainer.appendChild(restoreButton);
-          buttonContainer.appendChild(soldButton);
-        }
-        card.appendChild(buttonContainer);
-        cardCol.appendChild(card);
-        cardrow.appendChild(cardCol);
-        activeBookrow.appendChild(cardCol);
-      });
-      editProfileContainer.style.display = "none";
-      bookedBookContainer.style.display = "none";
-      editBookContainer.style.disaplay = "none";
-      activeBookContainer.style.display = "block";
-      activeBookContainer.scrollIntoView();
-    },
-  });
-});
+//   soldButton = document.createElement("button");
+//   soldButton.className =
+//     "col btn btn-sm sold-book-request my-0 mx-1 border border-r";
+//   soldButton.type = "button";
+//   soldButton.setAttribute("pid", activebook.id);
+//   soldButton.textContent = "Sold";
+
+//   card.appendChild(img);
+//   card.appendChild(title);
+//   buttonContainer.appendChild(editButton);
+//   if (activebook.status == false) {
+//     buttonContainer.removeChild(editButton);
+//     buttonContainer.appendChild(pendingButton);
+//   }
+//   if (activebook.status == true) {
+//     buttonContainer.removeChild(editButton);
+//     buttonContainer.appendChild(restoreButton);
+//     buttonContainer.appendChild(soldButton);
+//   }
+//   card.appendChild(buttonContainer);
+//   cardCol.appendChild(card);
+//   cardrow.appendChild(cardCol);
+//   activeBookrow.appendChild(cardCol);
+// });
+// editProfileContainer.style.display = "none";
+// bookedBookContainer.style.display = "none";
+// editBookContainer.style.disaplay = "none";
+// activeBookContainer.style.display = "block";
+// activeBookContainer.scrollIntoView();
+//     }),
+//   });
+// });
+
 // Code for ajax to send the data to the views for edit profile
 
 $(".save-change-button").click(function () {
@@ -118,12 +114,11 @@ $(".save-change-button").click(function () {
   var latitude = document.getElementById("id_latitude").value;
   var address = document.getElementById("id_Address").value;
   var longitude = document.getElementById("id_longitude").value;
- 
+
   $.ajax({
     type: "POST",
     url: "/edit-profile/",
     data: {
-    
       Name: Name,
       Phone_Number: Phone_Number,
       address: address,
@@ -131,8 +126,7 @@ $(".save-change-button").click(function () {
       longitude: longitude,
     },
     success: function (data) {
-window.location.href="/profile/"
-
+      window.location.href = "/profile/";
     },
   });
 });
@@ -149,8 +143,9 @@ const handleEditButtonClick = (event) => {
     },
     success: function (data) {
       editProfileContainer.style.display = "none";
-      activeBookContainer.style.display = "none";
+      wholeActiveBookContainer.style.display = "none";
       bookedBookContainer.style.display = "none";
+      soldBookContainer.style.display="none";
       editBookContainer.style.display = "block";
       const imageInputElement = document.getElementById("id_bookform-image");
       imageInputElement.removeAttribute("required");
@@ -188,8 +183,10 @@ const handleEditButtonClick = (event) => {
 
 //code for sending ajax request to the backend for handling pending request accept
 const handlePendingButtonClick = (event) => {
+  
   const button = event.target;
   const id = button.getAttribute("pid");
+  
 
   $.ajax({
     type: "GET",
@@ -198,10 +195,33 @@ const handlePendingButtonClick = (event) => {
       book_id: id,
     },
     success: function (data) {
-      const buttonContainer = button.closest(".button-container");
-      buttonContainer.removeChild(button);
-      buttonContainer.appendChild(restoreButton);
-      buttonContainer.appendChild(soldButton);
+     
+      restoreButton = document.createElement("button");
+        restoreButton.className =
+          "col btn btn-sm restore-book-request my-0 w-50 my-1 border border-r";
+        restoreButton.type = "button";
+        restoreButton.setAttribute("pid", id);
+        restoreButton.textContent = "Restore";
+        restoreButton.addEventListener("click", handleRestoreButtonClick);
+
+        soldButton = document.createElement("button");
+        soldButton.className =
+          "col btn btn-sm sold-book-request my-0 w-50 border  border-r";
+        soldButton.type = "button";
+        soldButton.setAttribute("pid",id);
+        soldButton.textContent = "Sold";
+        soldButton.addEventListener("click",handleSoldButtonRequest)
+
+        let changeStatusCell=event.target.parentNode
+        while (changeStatusCell.firstChild) {
+          changeStatusCell.removeChild(changeStatusCell.firstChild);
+        }
+
+        let buttonContainer = document.createElement("div");
+        buttonContainer.appendChild(restoreButton);
+        buttonContainer.appendChild(soldButton);
+        changeStatusCell.appendChild(buttonContainer)
+     
     },
   });
 };
@@ -253,27 +273,43 @@ const handleRestoreButtonClick = (event) => {
     });
   });
 };
+
+// function for handling the sold button click request
+
+ function handleSoldButtonRequest(event){
+  let book_id=event.target.getAttribute("pid")
+  $.ajax({
+    method:"post",
+    url:"/sold-book/",
+    data:{"book_id":book_id},
+    success:function(data){
+      alert(data.data)
+
+    }
+  })
+ }
+
+
+
 //code for the booked book
 
 const bookedBookButton = document.getElementById("booked-books");
 
 bookedBookButton.addEventListener("click", () => {
   editProfileContainer.style.display = "none";
-  activeBookContainer.style.display = "none";
+  wholeActiveBookContainer.style.display = "none";
   editBookContainer.style.display = "none";
+  soldBookContainer.style.display="none";
   bookedBookContainer.style.display = "block";
   bookedBookContainer.scrollIntoView();
 
-  // code for reverse geo encoding
   let cancelButton;
-  
-
   $.ajax({
     type: "GET",
     url: "/booked-book/",
     data: {},
     success: function (data) {
-      var tableBody = document.querySelector("#data-table tbody");
+      var tableBody = document.querySelector("#booked-data-table tbody");
       var rows = tableBody.getElementsByTagName("tr");
 
       // Remove each row
@@ -281,20 +317,14 @@ bookedBookButton.addEventListener("click", () => {
         var row = rows[i];
         tableBody.removeChild(row);
       }
-      let chatButton
+      let chatButton;
       data.data.forEach(async function (item) {
         cancelButton = document.createElement("button");
         cancelButton.textContent = "Cancel";
         cancelButton.setAttribute("pid", item.booked_id);
         cancelButton.className = "my-button-class";
 
-        
-        chatButton = document.createElement("button");
-        chatButton.textContent = "Chat";
-        chatButton.setAttribute("pid", item.booked_id);
-        chatButton.className = "chat-button";
-        chatButton.addEventListener("click", handleChatRequest)
-
+       
 
         var disabledCancelButton = document.createElement("button");
         disabledCancelButton.textContent = "Cancel";
@@ -312,17 +342,36 @@ bookedBookButton.addEventListener("click", () => {
         var priceCell = row.insertCell(4);
         var bookedStatusCell = row.insertCell(5);
         var contactSellerCell = row.insertCell(6);
-       
+
         titleCell.textContent = item.title;
         sellerCell.textContent = item.seller;
         contactCell.textContent = item.contact_no;
         priceCell.textContent = item.price;
-        addressCell.textContent=item.location
-        contactSellerCell.appendChild(chatButton);
+        addressCell.textContent = item.location;
+
+        // code for the chat function
+        const icon = document.createElement("i");
+        icon.setAttribute("pid", item.booked_id);
+        const notHoverClass = "fa-regular fa-comments";
+        const hoverClass = "fa-solid fa-comments";
+        icon.className = notHoverClass; // Set the initial class to the regular icon
+        icon.style.fontSize = "24px";
+        contactSellerCell.appendChild(icon);
+
+        icon.addEventListener("mouseover", function () {
+          icon.className = hoverClass; // Add the solid icon class
+        });
+
+        icon.addEventListener("mouseout", function () {
+          icon.className = notHoverClass; // Add the regular icon class
+        });
+
+        icon.addEventListener("click", handleChatRequest);
+
+        contactSellerCell.appendChild(icon);
         if (item.booked_status) {
           bookedStatusCell.appendChild(disabledCancelButton);
         } else {
-          
           bookedStatusCell.appendChild(cancelButton);
           cancelButton.addEventListener("click", function (event) {
             handleCancelRequest(event, item.booked_id);
@@ -333,7 +382,6 @@ bookedBookButton.addEventListener("click", () => {
     },
   });
 });
-
 
 async function popupfunction(booked_id) {
   const popupWrapper = document.querySelector(".popup-wrapper");
@@ -467,9 +515,209 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
-// code for chatapp 
-import { chatFunction } from '../../chatapp/js/chatapp.js';
+// code for chatapp
+import { chatFunction } from "../../chatapp/js/chatapp.js";
 
-function handleChatRequest(event){
+function handleChatRequest(event) {
   chatFunction(event);
 }
+
+activeBook.addEventListener("click", () => {
+  editProfileContainer.style.display = "none";
+  bookedBookContainer.style.display = "none";
+  editBookContainer.style.display = "none";
+  soldBookContainer.style.display="none";
+  wholeActiveBookContainer.style.display = "block";
+  
+
+  $.ajax({
+    type: "GET",
+    url: "/activebooks",
+    data: {},
+    success: function (data) {
+      var activeTableBody = document.querySelector("#active-book-table tbody");
+      var activeRows = activeTableBody.getElementsByTagName("tr");
+
+      var pendingTableBody = document.querySelector(
+        "#pending-book-table tbody"
+      );
+      var pendingRows = pendingTableBody.getElementsByTagName("tr");
+
+      // Remove each row
+      for (var i = activeRows.length - 1; i >= 0; i--) {
+        var activeRow = activeRows[i];
+        activeTableBody.removeChild(activeRow);
+      }
+      for (var i = pendingRows.length - 1; i >= 0; i--) {
+        var pendingRow = pendingRows[i];
+        pendingTableBody.removeChild(pendingRow);
+      }
+      data.forEach((activeBookData) => {
+        let chatButton;
+        let editButton;
+        let deleteButton;
+
+        chatButton = document.createElement("button");
+        chatButton.textContent = "Chat";
+        chatButton.setAttribute("pid", activeBookData.booked_id);
+        chatButton.className = "chat-button";
+        chatButton.addEventListener("click", handleChatRequest);
+
+        editButton = document.createElement("button");
+        editButton.className =
+          "btn edit-books my-0 my-0 w-100 border border-r btn-sm";
+        editButton.type = "button";
+        editButton.setAttribute("pid", activeBookData.id);
+        editButton.textContent = "Edit";
+        editButton.addEventListener("click", handleEditButtonClick);
+
+        pendingButton = document.createElement("button");
+        pendingButton.className =
+          "btn btn-sm pending-book-request my-0 w-100 border border-r";
+        pendingButton.type = "button";
+        pendingButton.setAttribute("pid", activeBookData.id);
+        pendingButton.textContent = "Pending";
+        pendingButton.addEventListener("click", handlePendingButtonClick);
+
+        restoreButton = document.createElement("button");
+        restoreButton.className =
+          "col btn btn-sm restore-book-request my-0 w-50 my-1 border border-r";
+        restoreButton.type = "button";
+        restoreButton.setAttribute("pid", activeBookData.id);
+        restoreButton.textContent = "Restore";
+        restoreButton.addEventListener("click", handleRestoreButtonClick);
+
+        soldButton = document.createElement("button");
+        soldButton.className =
+          "col btn btn-sm sold-book-request my-0 w-50 border  border-r";
+        soldButton.type = "button";
+        soldButton.setAttribute("pid", activeBookData.id);
+        soldButton.textContent = "Sold";
+        soldButton.addEventListener("click",handleSoldButtonRequest)
+
+        deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.setAttribute("pid", activeBookData.id);
+        deleteButton.className ="delete-button my-0 btn btn-danger edit-books my-0 my-0 w-100 border border-r btn-sm";
+        deleteButton.addEventListener("click", handleDeleteBookRequest);
+
+        if (activeBookData.status === true || activeBookData.status === false) {
+          let row = pendingTableBody.insertRow();
+          let titleCell = row.insertCell(0);
+          let postedDateCell = row.insertCell(1);
+          let priceCell = row.insertCell(2);
+          let buyerNamecell = row.insertCell(3);
+          let changeStatusCell = row.insertCell(4);
+          let contactBuyerCell = row.insertCell(5);
+          titleCell.textContent = activeBookData.title;
+          postedDateCell.textContent = activeBookData.posted_date;
+          priceCell.textContent = activeBookData.price;
+          buyerNamecell.textContent = activeBookData.buyer_name;
+          if (activeBookData.status === true) {
+            changeStatusCell.appendChild(pendingButton);
+          } 
+          else {
+            let buttonContainer = document.createElement("div");
+            buttonContainer.appendChild(restoreButton);
+            buttonContainer.appendChild(soldButton);
+            changeStatusCell.appendChild(buttonContainer);
+          }
+
+          const icon = document.createElement("i");
+          icon.setAttribute("pid", activeBookData.booked_id);
+          const notHoverClass = "fa-regular fa-comments";
+          const hoverClass = "fa-solid fa-comments";
+          icon.className = notHoverClass; // Set the initial class to the regular icon
+          icon.style.fontSize = "24px";
+          contactBuyerCell.appendChild(icon);
+
+          icon.addEventListener("mouseover", function () {
+            icon.className = hoverClass; // Add the solid icon class
+          });
+
+          icon.addEventListener("mouseout", function () {
+            icon.className = notHoverClass; // Add the regular icon class
+          });
+
+          icon.addEventListener("click", handleChatRequest);
+        } else {
+          let row = activeTableBody.insertRow();
+          let titleCell = row.insertCell(0);
+          let postedDateCell = row.insertCell(1);
+          let priceCell = row.insertCell(2);
+          let editCell = row.insertCell(3);
+          let deleteCell = row.insertCell(4);
+          titleCell.textContent = activeBookData.title;
+          postedDateCell.textContent = activeBookData.posted_date;
+          priceCell.textContent = activeBookData.price;
+          editCell.appendChild(editButton);
+          deleteCell.appendChild(deleteButton);
+        }
+      });
+    },
+  });
+});
+
+function handleDeleteBookRequest(event) {
+  let book_id=event.target.getAttribute("pid")
+  $.ajax({
+    method:"POST",
+    url:"/delete-book/",
+    data:{"book_id":book_id},
+    success:function (data){
+      var activeTableBody = document.querySelector("#active-book-table tbody");
+      let tableCell=event.target.parentNode
+      let tableRow =tableCell.closest("tr")
+      activeTableBody.removeChild(tableRow)
+      
+    }
+  }) 
+}
+
+
+const soldBookButton=document.getElementById("sold-books")
+soldBookButton.addEventListener("click",()=>{
+  editProfileContainer.style.display = "none";
+  bookedBookContainer.style.display = "none";
+  editBookContainer.style.display = "none";
+  wholeActiveBookContainer.style.display = "none";
+  soldBookContainer.style.display="block";
+  
+  $.ajax({
+    
+    method:"get",
+    url:"/sold-book/",
+    data:{},
+    success:function(data){
+      
+      let tableBody = document.querySelector("#sold-data-table tbody");
+      let rows = tableBody.getElementsByTagName("tr");
+    
+      // Remove each row
+      for (let i = rows.length - 1; i >= 0; i--) {
+        let row = rows[i];
+        tableBody.removeChild(row);
+      }
+      data.data.forEach((data)=>{
+        var row = tableBody.insertRow();
+
+        var bookNameCell = row.insertCell(0);
+        var postedDurationCell = row.insertCell(1);
+        var sellingPriceCell = row.insertCell(2);
+        var buyerNamCell = row.insertCell(3);
+
+        bookNameCell.textContent=data.bookname
+        postedDurationCell.textContent=data.postedduration
+        sellingPriceCell.textContent=data.sellingprice
+        buyerNamCell.textContent=data.buyername
+
+      })
+
+     
+     
+    }
+    
+  })
+  
+ 
+})

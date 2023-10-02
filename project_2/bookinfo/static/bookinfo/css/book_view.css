@@ -67,7 +67,7 @@ section{
     justify-content: space-around;
     padding-top: 1.5rem !important;
 }
-.map{
+#map{
     display: flex;
     justify-content: center;
     padding-top:1.5rem !important;

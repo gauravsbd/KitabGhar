@@ -24,6 +24,7 @@ class Bookinfo(models.Model):
     longitude = models.FloatField(default=None)
     location=models.CharField(max_length=200,default="Gharmi, Pokhara-16, Pokhara, Kaski")
     added_date = models.DateField(default=None)
+    location = models.CharField(max_length=200,default="pokhara -26 kaski")
     def __str__(self):
      return self.title
     

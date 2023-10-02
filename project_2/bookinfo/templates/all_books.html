@@ -1,29 +1,30 @@
 {% extends 'baseapp/base.html' %}
-{% block content%}
+{% block content %}
 <div class="container">
+    
     <div class="row">
         {% for book in data %}
-        <div class="see-all">
-            <h2 class="m-0">{{ book.category}}</h2>
-        </div>
-        <div class="underline"></div>
-        
-        <div class="col-lg-3 col-md-4 col-sm-6 col-12 py-5 card-col ">
-          <a  href="{% url 'book_detail' book.id %}"> 
-             <div class="card shadow-lg book-item h-100" > 
-                    <img src="{{ book.image.url }}" class="card-img-top fixed-image " alt="..." />
-                <div class="card-body text-center  ">
-                    <span class="category px-4">{{ book.category}}</span>
-                    <p class="fw-bold my-0 py-1">{{book.title}}</p>
-                    <p class="my-0 py-1">{{book.original_price}}</p>
-                    <p class=" ">{{book.selling_price}}<span>(Fixed/Negotiable)</span></p>
-                    <p>
-                        <i class="fa-sharp fa-solid fa-location-dot px-2"></i>Location
-                    </p>
+            {% cycle '' '' '' '</div><div class="row">' as cycle_row silent %}
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12 py-2 card-col">
+                    <a href="{% url 'book_detail' book.id %}">
+                        <div class="card shadow-lg book-item h-100">
+                            <div class="img-div">
+                                <img src="{{ book.image.url }}" class="card-img-top fixed-image object-fit py-1 px-1 " alt="..." />
+                            </div>
+                            <div class="card-body text-center my-1 py-0">
+                                <span class="category px-4 py-0">{{ book.category }}</span>
+                                <p class="fw-bold my-0 py-1">{{ book.title }}</p>
+                                <p class="my-0 py-0">{{ book.original_price }}</p>
+                                <p class="my-1">{{ book.selling_price }}<span class="py-0">(Fixed/Negotiable)</span></p>
+                                 <span>
+                                    <i class="fa-sharp fa-solid fa-location-dot px-2 py-0"></i>Location
+                                 </span>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </a>
-            </div>
-        </div>
         {% endfor %}
-
+        
+    </div>
+</div>
 {% endblock content %}

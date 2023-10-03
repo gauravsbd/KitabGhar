@@ -50,7 +50,7 @@ def signup_form(request):
 
 def user_logout(request):
     logout(request)
-    messages.info(request,"Log out succefully")
+    messages.warning(request,"Log out succefully")
     return HttpResponseRedirect('/')
 
 class profile_view(View):

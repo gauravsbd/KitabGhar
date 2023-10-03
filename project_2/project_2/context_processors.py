@@ -4,6 +4,7 @@ from bookinfo.models import Bookedmodel,Bookinfo
 from searchapp.models import searchmodel 
 from django.contrib.sessions.models import Session
 from django.contrib.messages import get_messages
+from django.http import JsonResponse
 
 
 #setting up the session value for the notification count 
@@ -59,7 +60,15 @@ def global_context(request):
     return context 
         
 
-def messages(request):
-    message_list = list(get_messages(request))  # Convert generator to list
-    return {'messages': message_list}    
+# def messages(request):
+#     message_list = list(get_messages(request))
+#     message_list_with_header=[]
+#     for message in message_list:
+#         message_list_with_header.append(
+#             {
+#                 "header":message.level_tag,
+#                 "message":message.message
+#             }
+#         )
+#     return JsonResponse({'messages': message_list_with_header})    
     

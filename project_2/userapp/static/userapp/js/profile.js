@@ -428,6 +428,7 @@ function handleCancelRequest(event, booked_id) {
     }
   });
 }
+
 //code for the profile picture change
 
 $(document).ready(function () {
@@ -436,6 +437,8 @@ $(document).ready(function () {
     const close = document.querySelector(".edit-profile-close");
     const popup = document.querySelector(".edit-profile-popup");
     const uploadPhoto = document.querySelector(".edit-profile-submit-btn");
+    let uploadButton;
+    let parentOfUploadButton;
     popupWrapper.style.display = "block";
 
     close.addEventListener("click", () => {
@@ -519,8 +522,12 @@ document.addEventListener("DOMContentLoaded", function () {
 import { chatFunction } from "../../chatapp/js/chatapp.js";
 
 function handleChatRequest(event) {
-  chatFunction(event);
+  chatFunction(event); // Call the function immediately
+  // setInterval(function() {
+  //   chatFunction(event); // Call the function every 5 seconds
+  // }, 5000);
 }
+
 
 activeBook.addEventListener("click", () => {
   editProfileContainer.style.display = "none";

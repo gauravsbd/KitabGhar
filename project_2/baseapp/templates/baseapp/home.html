@@ -1,4 +1,9 @@
 {% extends 'baseapp/base.html' %}
+{% load static%}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'baseapp/css/style.css' %}" />
+    {% endblock %}
 {% block content%}
 
 <section class="bg-black">
@@ -62,9 +67,9 @@
                 <a href="{% url 'book_detail' book.id %}">
                     <div class="card shadow-lg book-item h-100">
                         <div class="img-div">
-                            <img src="{{ book.image.url }}" class="card-img-top fixed-image object-fit py-1 px-1 " alt="..." />
+                            <img src="{{ book.image.url }}" class="card-img-top fixed-image object-fit py-2 px-1" alt="..." />
                         </div>
-                        <div class="card-body text-center my-1 py-0">
+                        <div class="card-body text-center my-3 py-0">
                             <span class="category px-4 py-0">{{ book.category }}</span>
                             <p class="fw-bold my-0 py-1">{{ book.title }}</p>
                             <p class="my-0 py-0">{{ book.original_price }}</p>

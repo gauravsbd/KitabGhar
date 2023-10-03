@@ -1,11 +1,11 @@
-/* *{
+*{
     margin: 0 !important;
     padding: 0 !important;  
     box-sizing: border-box;
-} */
+} 
 section{
     padding: 5em 0 !important;
-    /* background-color: aquamarine; */
+     
 }
 .container{
     max-width: 1140px !important;
@@ -74,22 +74,6 @@ section{
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @media screen and (max-width:768px){
     .row{
         display: flex !important;
@@ -135,7 +119,7 @@ section{
     align-items: center;
 }
    
-/* @media screen and (max-width:576px){
+ @media screen and (max-width:576px){
     .row{
         display: flex !important;
         flex-direction: column !important;
@@ -153,4 +137,4 @@ section{
 
 
     }
-} */
+}

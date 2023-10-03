@@ -4,6 +4,9 @@ from userapp.models import userinfomodel
 from bookinfo.models import Cateogory
 from searchapp.forms import searchform
 from django.core.paginator import Paginator
+from django.contrib.messages import get_messages
+from django.http import JsonResponse
+
 
 def form_view(request):
     categories = Cateogory.objects.all()[:3]
@@ -28,3 +31,18 @@ def about_us(request):
     if request.user.is_authenticated:
        
         return render(request,"baseapp/about_us.html",)
+    
+def messages(request):
+    
+    message_list = list(get_messages(request))
+    message_list_with_header=[]
+    for message in message_list:
+        message_list_with_header.append(
+            {
+                "header":message.level_tag,
+                "message":message.message
+            }
+        )
+       
+    return JsonResponse({'messages': message_list_with_header})    
+    

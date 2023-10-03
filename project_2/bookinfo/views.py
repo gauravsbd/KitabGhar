@@ -94,7 +94,7 @@ class all_books(View):
     def get(self, request, category):
        category_id = Cateogory.objects.values_list('id', flat=True).filter(category=category).first()
        data=Bookinfo.objects.filter(category=category_id)
-       context={"data":data,}
+       context={"data":data,"Category":category}
        return render(request,"all_books.html",context)
     
 

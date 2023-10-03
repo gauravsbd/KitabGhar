@@ -244,35 +244,43 @@
   </section>
 
   {% comment %} code for the chat bot {% endcomment %}
-<section>
-  <div class="container" >
-  <div class="chat-container " id="chat-container" >
-        <div class="chat-content p-2">
-            <div class="row">
-
-                <div class="col-md-6">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa, modi.
-                </div>
-                <div class="col-md-6">
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Minus perferendis facere quibusdam ex,
-                    maiores sapiente? Consequatur numquam reiciendis commodi magni, rem, ut deleniti aperiam
-                    repellendus quos quidem praesentium cumque at!
-                </div>
+  <section class="chat-section">
+    <div class="container">
+      <div class="chat-container " id="chat-container">
+        <div class="chat-content p-2 ">
+          <div class="cross-image-container">
+  
+            <div class="cross-image">
+              <i class="fa-regular fa-circle-xmark" id="cross-icon"  style="font-size: 35px;"></i>
             </div>
-            <div class="write-message ms-2" >
-                <form >
-                  {% csrf_token %}
-                    <textarea name="message" id="message" cols="30" rows="2"  >
-                    </textarea>
-                    <button type="submit" class="btn bg-success" id="message-send-button">sent</button>
-                  </form>
-            </div>
+          </div>
+          <hr>
+          <div class="chat-row ">
+  
+  
+          </div>
+          <hr>
+          <div class=" ms-2">
+            <form>
+              {% csrf_token %}
+              <div class="write-message">
+  
+                <textarea name="message" id="message" cols="40" rows="2" id="message">
+                </textarea>
+                <div class="send-image" id="message-send-button">
+                  <!-- <img src="../../MEDIA/sent_pic.jpg"  class="send-icon" alt=""> -->
+                  <img src="https://t3.ftcdn.net/jpg/02/93/72/48/360_F_293724835_LqDz77Sl5zGWOU5eEcPYMM99qeBiiaiu.jpg"
+                    class="send-icon" alt="">
+                </div>
+              </div>
+            </form>
+          </div>
+  
         </div>
+      </div>
+  
     </div>
-    
-</div>
-</section>
-
+  </section>
 
 
 

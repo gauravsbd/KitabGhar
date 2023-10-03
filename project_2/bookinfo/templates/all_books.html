@@ -1,8 +1,16 @@
 {% extends 'baseapp/base.html' %}
 {% block content %}
 <div class="container">
-    
-    <div class="row">
+    {% if Category%}
+     <div class="my-3 fixed">    <h2 class="m-0">{{ Category }}</h2></div>
+     <div><div style="   margin-left: .1rem;
+        height: .2rem;
+        width: 100%;
+        background-color: black;
+        margin-top: 10px;"></div>
+
+     </div>
+    <div class="row my-3">
         {% for book in data %}
             {% cycle '' '' '' '</div><div class="row">' as cycle_row silent %}
                 <div class="col-lg-3 col-md-4 col-sm-6 col-12 py-2 card-col">
@@ -24,6 +32,7 @@
                     </a>
                 </div>
         {% endfor %}
+        {% endif %}
         
     </div>
 </div>

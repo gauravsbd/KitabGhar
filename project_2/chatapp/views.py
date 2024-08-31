@@ -17,7 +17,7 @@ class chatView(View):
        for data in chatConversation:
            chat={
             "message":data.message,
-            "sender_id":data.sender_id.id  
+            "sender_id":data.sender_id
            }
            conversation.append(chat)
            if(data.view_status is None):

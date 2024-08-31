@@ -1,1 +1,1 @@
-#Kitabghar is platform for secondhand marketpalce for bookd
+#Kitabghar is platform for secondhand marketpalce for books

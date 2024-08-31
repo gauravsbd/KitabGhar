@@ -1,18 +1,29 @@
-*{
-    margin: 0 !important;
-    padding: 0 !important;  
-    box-sizing: border-box;
-} 
+ 
 section{
-    padding: 5em 0 !important;
+    padding: 5rem 0 !important;
      
 }
 .container{
     max-width: 1140px !important;
     margin: auto !important;
     }
+.photo-container,.b-description,.contact-links{
+    flex-basis: 33.33%;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}
+.b-description{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+
+}
+
+
 .user-photo{
-    width: 200px;
+    width:200px;
     height: 200px;
 }
 .user-photo img{
@@ -20,13 +31,6 @@ section{
     height: 100%;
     border-radius: 50%;
 }
-
-.user-photo i{
-    font-size: 5rem;
-}
-
-
-
 
 .contact-links-inner{
     display: flex;
@@ -43,21 +47,21 @@ section{
     border: 2px solid black;
     background-color: lightgray;
 }
+
 /*  book description css*/
 
-.photo-wrapper{
-     display: flex;
-     justify-content: center;
-     align-items: center;
+.book-photo{
+    height: 300px;
+    width: 300px;
+
 }
-.col-book-photo{
-   width: 40%;
-   height: 70%;
-}
-.col-book-photo img{
+
+
+.book-photo >img{
     width: 100%;
     height: 100%;
-    border-radius: 10px;
+    /* border-radius: 10px; */
+    object-fit: fill;
 }
 .book-description{
     padding-left: 2rem !important;
@@ -67,11 +71,25 @@ section{
     justify-content: space-around;
     padding-top: 1.5rem !important;
 }
+
+
+
+
+
+
 #map{
     display: flex;
     justify-content: center;
     padding-top:1.5rem !important;
 }
+
+
+
+
+
+
+
+
 
 
 @media screen and (max-width:768px){

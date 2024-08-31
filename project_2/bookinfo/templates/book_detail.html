@@ -9,9 +9,9 @@
 <body>
   <section>
     <div class="container">
-      <div class="wrapper shadow shadow-5">
-        <div class="row d-flex align-items-center">
-          <div class="photo-container col-lg-3 col-md-3">
+      <div class="row shadow shadow-5  ">
+        <!-- <div class="row"> -->
+          <div class="photo-container col-lg-3 col-md-3 ">
             {% for seller in seller %}
             <div class="user-photo ">
 
@@ -22,8 +22,8 @@
 
           </div>
           {% for seller in seller %}
-          <div class="b-description col-lg-6 col-md-6  px-2">
-            <div class="contain">
+          <div class="b-description col-lg-6 col-md-6  px-2 ">
+   
               <p id="book-price" class="text-success">Rs <span id="price">{{data.selling_price}}</span>( <span
                   id="fixed-negotaible">Fixed)</span> </p>
 
@@ -31,44 +31,49 @@
               <p id="category">{{data.category}}</p>
               <p> <span class="text-success">By</span> {{seller.Name}}| <span id="posted-date" lass="text-success">
                   posted</span> {{data.added_date}}</p>
-            </div>
+             
           </div>
           <div class="col-lg-3 col-md-3   px-2 contact-links d-flex justify-content-center ">
             <div class="contain  text-center contact-links-inner w-100">
-              <button type="button" class="btn py-2 email w-100"><i class="fa-solid fa-envelope px-1"></i>EMAIL</button>
-              <button type="button" class="btn contact my-1 py-2 w-100"><i
+              <button type="button" class="btn py-2 email w-50"><i class="fa-solid fa-envelope px-1"></i>EMAIL</button>
+              <button type="button" class="btn contact my-1 py-2 w-50"><i
                   class="fa-solid fa-mobile-screen-button px-1"></i>{{ seller.Phone_Number}}
               </button>
 
             </div>
           </div>
-        </div>
+        <!-- </div> -->
       </div>
 
       <div class="book-description py-5 shadow shadow-2">
         <div class="row">
-          <div class="photo-wrapper  col-lg-6 col-md-6">
-            <div class="col-book-photo ">
-              <img src="{{data.image.url}}" alt="">
+          <div class="col-lg-6 col-md-6">
+            <div class="book-photo-contianer d-flex justify-content-center mb-3">
+              <div class="book-photo">
+                <img src="{{data.image.url}}" class="" alt="">
+              </div>
+      
+            </div>
+            <hr>
+            <div class="description">
+              <div><h5 class="text-center my-3 ">{{data.description}}</h5></div>
+               <div class="d-flex">
+                <div class="col-md-6">
+                  <p><b>Posted at: </b><span id="date">{{data.added_date}}</span></p>
+                  <p><b>Original Price:</b> <span id="original_price">{{data.original_price}}</span></p>
+                  <p><b>Location:</b> <span id="location">{{data.Address}}</span></p>
+                </div>
+                <div class="col-md-6">
+                  <p><b>Price: </b><span id="price">{{data.selling_price}}</span></p>
+                  <p><b>Condition:</b> <span id="{{data.condition}}">{{data.condition}}</span></p>
+                  <span id="book-id" attr="{{data.id}}"></span>
+                  
+                </div>
+               </div>
             </div>
           </div>
-
-          <div class="description col-lg-6 col-md-6">
-            <h5 class="text-center "><b>Description</b></h5>
-            <div class="description-wrapper">
-              <div class="px-1">
-                <p><b>Price: </b><span id="price">{{data.selling_price}}</span></p>
-                <p><b>Condition:</b> <span id="{{data.condition}}">{{data.condition}}</span></p>
-                <p><b>Location:</b> <span id="location">{{seller.Address}}</span></p>
-                <span  id ="book-id" attr={{data.id}}></span>
-              </div>
-              <div class="px-1">
-                <p><b>Date: </b><span id="date">{{data.added_date}}</span></p>
-                <p><b>Original Price:</b> <span id="original_price">{{data.original_price}}</span></p>
-
-              </div>
-              <div class="px-5" id="map" style="height: 500px;width: 500px;"></div>
-
+          <div class="col-md-6 col-lg-6">
+            <div class="px-5 border border-2 border-dark" id="map" style="height: 500px; width: 500px;" >
               <script>
                 var map = L.map('map').setView([28.26689, 83.96851], 13);
                 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -78,38 +83,46 @@
                 var lat = {{ data.latitude }}
                 var lng = {{ data.longitude }}
                 var marker = new L.marker([lat, lng]).addTo(map);
-              </script>
-
-            </div>
-            <button type="button" class="btn contact  my-1 py-2 px-3 " id="buy">Buy </button>
+              </script></div>
           </div>
-          {% endfor %}
+       <div class="text-center">   <button type="button" class="btn contact my-3 py-2 px-3 w-25 " id="buy"data-bs-toggle="modal" data-bs-target="#staticBackdrop">Buy </button></div>
         </div>
-
       </div>
 
     </div>
-
+{% endfor %}
   </section>
 
   <!-- popup section -->
   <section>
 
-    <div class="popup-wrapper">
-      <div class="popup">
-        <div class="close fw-bold fs-4">
-          x
-        </div>
-        <div class="popup-content">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias voluptates magni doloribus adipisci earum,
-          facilis odio officiis voluptatem delectus illum, inventore qui eum consequatur, incidunt a atqu
-            <input type="checkbox" id="checkbox">
-            <label for="checkbox">I agree to the terms and cot</label>
-            <button class="submit-btn rounded-3" disabled
-            >Submit</button>
-        </div>
+    <!-- Button trigger modal -->
+
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Terms and conditions</h5>
+      </div>
+      <div class="modal-body">
+        <p>  
+          <h4 class="text-center">This book is not sold by a bookstore. </h4> <br>You can purchase this book through a mutual 
+          agreement with the seller.
+           <p class="text-center text-danger">Please be cautious of fraud.</p>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary submit-btn"data-bs-dismiss="modal">Ok</button>
       </div>
     </div>
+  </div>
+</div>
+
+
+
+    
   </section>
 
 
@@ -118,20 +131,5 @@
   <script src="{% static 'bookinfo/js/book_view.js' %}"></script>
   {% endblock %}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </body>
-
 </html>

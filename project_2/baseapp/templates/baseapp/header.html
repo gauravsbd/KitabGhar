@@ -2,9 +2,9 @@
 <link rel="stylesheet" href="{% static 'baseapp/css/notification.css' %}" />
 
 <header class="position-sticky top-0">
-    <div class="navbar-light bg-white navigation">
+    <div class="navbar-light shadow-lg bg-white navigation">
       <nav class="container navbar navbar-expand-lg navbar-light bg-seconday">
-        <div class="container-fluid">
+        <div class="container-fluid ">
           <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'baseapp/Images/logo(2).png' %}" alt="" height="70" width="120" /></a>
           <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -28,40 +28,22 @@
                   aria-expanded="false">
                   Category
                 </a>
-                <ul class="dropdown-menu bg-white border- rounded-1" aria-labelledby="navbarDropdown">
+                <ul class="dropdown-menu bg-white" aria-labelledby="navbarDropdown">
                   {% for category in category %}
                   <li>
                     <a class="dropdown-item" href="{% url 'books' category.category  %}">{{category.category}}</a>
                   </li>
                   {% endfor %}
-                  
-                </ul>
+
+                </ul
+                >
               </li>
             </ul>
-            <!-- {% comment %} <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-              {% comment %} <button class="btn btn-outline-white search" type="submit">
-                Search
-              </button> {% endcomment %}
-             -->
+        
              {% if request.user.is_authenticated %}
-             <div class="d-flex ">
-               <div class="user-image m-1 dropdown " id="header-user-image">
-                 <a class="" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                 aria-expanded="false">
-                 <i class="fa-solid fa-bell text-black m-1 fs-4" id="notification-button">
-                   {% if notification_count > 0 %}
-                   <span id="notification-count" class='notification-count'>{{notification_count}}</span>
-                   {% endif %}
-                  </i>
-                  <div class ="container" > 
-                    <ul class="dropdown-menu bg-white border- rounded-1 " id="notification-dropdown" aria-labelledby="navbarDropdown">
-                    </ul> 
-                  </div>
-                </div>
+             <div class="d-flex  justfy-content-between align-items-center  ">
                 {% if userdata %}
                 {% for userdata in userdata %}
-
                      <div class="user-image m-1 dropdown " id="header-user-image">
                        <a class="" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                       aria-expanded="false">
@@ -90,7 +72,24 @@
                   {% endif %}  
                     <div> <a href="{% url 'bookinfo'%}"><i class="fa-solid fa-circle-plus text-black fs-4 m-1"></i></a>
                     </div>
-                </div>
+
+                    <div class="m-1 dropdown " id="">
+                      {% comment %} <a class="" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                      aria-expanded="false"> {% endcomment %}
+                      <button class="noti border-0 " id="notification-button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-target="#notification-dropdown">
+                      <i class="fa-solid fa-bell text-black m-1 fs-4" >
+                        {% if notification_count > 0 %}
+                        <span id="notification-count" class='notification-count'>{{notification_count}}</span>
+                        {% endif %}
+                       </i>  
+                       </button>                                                  
+                       <div class ="notification-container"  > 
+                         <ul class="dropdown-menu bg-white border- rounded-1 notification-menu " id="notification-dropdown" aria-labelledby="notification-button">
+                           
+                         </ul> 
+                       </div>
+                     </div>
+              </div>
               
             {% else %}
 

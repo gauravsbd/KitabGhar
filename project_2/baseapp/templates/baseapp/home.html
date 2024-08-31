@@ -1,96 +1,102 @@
-{% extends 'baseapp/base.html' %}
-{% load static%}
-
-{% block css %}
+{% extends 'baseapp/base.html' %} {% load static%} {% block css %}
 <link rel="stylesheet" href="{% static 'baseapp/css/style.css' %}" />
-    {% endblock %}
-{% block content%}
+{% endblock %} {% block content%}
 
 <section class="bg-black">
-    <div class="container">
-        <div class="slider-wrapper">
-            <div class="slider-row">
-                <div class="col1 col-lg-6">
-                    <div class="contain">
-                        <h2 class="fw-bold">Kitab Ghar</h2>
-                        <p>
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magnam, odio officia autem fuga exercitationem animi, ratione dolor, vel blanditiis necessitatibus doloremque cumque obcaecati minima! Perferendis, debitis eius! Dolor quis omnis consequuntur et iste cum tempore similique, vitae ipsum laboriosam amet nulla accusamus! Voluptatem accusantium, corporis voluptatum quos adipisci quibusdam eaque.
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum voluptatem eum officiis reprehenderit voluptate quas, iure maxime fugit hic ipsam consequuntur, quaerat explicabo, repellendus sunt magni odit natus. Amet, ea.
-                        </p>
-                    </div>
-                </div>
-                <div class="col2 col-lg-6 ">
-                    <div class="contain px-3 py-3 rounded border shadow-lg">
-                        <h3>Which books are you looking for?</h3>
-                        <hr>
-                        
-                        <form action="{% url 'searchapp:search-result' %}" method="GET"> 
-                           
-                            {% csrf_token %}
-                            <div class="form-group">
-                                <label for="{{ form.Title.id_for_label }}">Title:</label> 
-                                {{ form.Title }}
-                                {% if form.Title.errors %}
-                                    <span class="text-danger">{{ form.Title.errors.as_text }}</span>
-                                {% endif %}
-                                <label for="{{ form.category.id_for_label }}">Category:</label> 
-                                {{ form.category }}
-                                {% if form.category.errors %}
-                                    <span class="text-danger">{{ form.category.errors.as_text }}</span>
-                                {% endif %}
-                            </div>
-                           <div class="my-3 text-center">
-                            <input type="submit" class="btn btn-success btn-sm my-3 w-100 btn-lg">
-                           </div>
-                        </form> 
-                    </div>      
-                </div>
-            </div>
+  <div class="container">
+    <div class="slider-wrapper">
+      <div class="slider-row">
+        <div class="col1 col-lg-6">
+          <div class="contain">
+            <h1 class="">Kitab Ghar</h1><hr>
+            <p>
+            
+            <h4><i>Post What You Read,<br> Buy What You Crave:<br> Unleash Your Inner Bookworm!</i></h4>
+            </p>
+          </div>
         </div>
+        <div class="col2 col-lg-6">
+          <div class="contain px-3 py-3 rounded border shadow-lg">
+            <h3>Which books are you looking for?</h3>
+            <hr />
+
+            <form action="{% url 'searchapp:search-result' %}" method="GET">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="{{ form.Title.id_for_label }}">Title:</label>
+                {{ form.Title }} {% if form.Title.errors %}
+                <span class="text-danger">{{ form.Title.errors.as_text }}</span>
+                {% endif %}
+                <label for="{{ form.category.id_for_label }}">Category:</label>
+                {{ form.category }} {% if form.category.errors %}
+                <span class="text-danger"
+                  >{{ form.category.errors.as_text }}</span
+                >
+                {% endif %}
+              </div>
+              <div class="my-3 text-center">
+                <input
+                  type="submit"
+                  class="btn btn-submit btn-sm my-3 w-100 btn-lg"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
- 
+
 {% for category_data in filter_books %}
-<section class="latest-books">
-    <div class="container">
-        <div class="see-all">
-            <h2 class="m-0">{{ category_data.category }}</h2>
-            <a href="{% url 'books' category_data.category %}">
-                <button type="button" class="btn more-books" id="see-button">See All</button>
-            </a>
-        </div>
-        <div class="underline"></div>
-        
-        <div class="row">
-            {% for book in category_data.books %}
-            <div class="col-lg-3 col-md-4 col-sm-6 col-12 py-2 card-col">
-                <a href="{% url 'book_detail' book.id %}">
-                    <div class="card shadow-lg book-item h-100">
-                        <div class="img-div">
-                            <img src="{{ book.image.url }}" class="card-img-top fixed-image object-fit py-2 px-1" alt="..." />
-                        </div>
-                        <div class="card-body text-center my-3 py-0">
-                            <span class="category px-4 py-0">{{ book.category }}</span>
-                            <p class="fw-bold my-0 py-1">{{ book.title }}</p>
-                            <p class="my-0 py-0">{{ book.original_price }}</p>
-                            <p class="my-1">{{ book.selling_price }}<span class="py-0">(Fixed/Negotiable)</span></p>
-                             <span>
-                                <i class="fa-sharp fa-solid fa-location-dot px-2 py-0"></i>{{book.location}}
-                             </span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            {% endfor %}
-        </div> 
+<section
+  class="latest-books"
+  style="background-color: {% cycle 'white' 'rgba(228, 226, 226, 0.5)' %};"
+>
+  <div class="container">
+    <div class="see-all">
+      <h2 class="m-0">{{ category_data.category }}</h2>
+      <a href="{% url 'books' category_data.category %}">
+      <div class="see-all-book"><p>
+        See All
+      <p></div>
+      </a>
     </div>
-  
+    <div class="underline"></div>
+
+    <div class="row">
+      {% for book in category_data.books %}
+      <div class="col-lg-3 col-md-4 col-sm-6 col-12 py-2 card-col">
+        <a href="{% url 'book_detail' book.id %}">
+          <div class="card shadow-lg book-item h-100">
+            <div class="img-div">
+              <img
+                src="{{ book.image.url }}"
+                class="card-img-top fixed-image object-fit py-2 px-1"
+                alt="..."
+              />
+
+              <span class="sold-out"> SOLD-OUT </span>
+            </div>
+            <div class="card-body text-center my-3 py-0">
+              <span class="category px-4 py-0">{{ book.category }}</span>
+              <p class="fw-bold my-0 py-1">{{ book.title }}</p>
+              <p class="my-0 py-0">{{ book.original_price }}</p>
+              <p class="my-1">
+                {{ book.selling_price }}<span class="py-0"
+                  >(Fixed/Negotiable)</span
+                >
+              </p>
+              <span>
+                <i class="fa-sharp fa-solid fa-location-dot px-2 py-0"></i
+                >{{book.location}}
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 </section>
-{% endfor %}
-{% endblock content %}
-
-
-
-
- 
-
+{% endfor %} {% endblock content %}

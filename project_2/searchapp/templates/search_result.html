@@ -1,21 +1,42 @@
 {% extends 'baseapp/base.html' %}
+ {% load static%}
+{% block css %}
+<link rel="stylesheet" href="{% static 'baseapp/css/style.css' %}" />
+{% endblock%} 
 {% block content%}
-
  <div>
 <section class="latest-books"> 
     {% if search_books%}
     {% for book in search_books %}
     <div class="container">
-        <div class="row">
-            
-            <div class="underline"></div>
            
+       <div class="row">
+            {% for book in category_data.books %}
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12 py-2 card-col">
+                <a href="{% url 'book_detail' book.id %}">
+                    <div class="card shadow-lg book-item h-100">
+                        <div class="img-div">
+                            <img src="{{ book.image.url }}" class="card-img-top fixed-image object-fit py-2 px-1" alt="..." />
+                        </div>
+                        <div class="card-body text-center my-3 py-0">
+                            <span class="category px-4 py-0">{{ book.category }}</span>
+                            <p class="fw-bold my-0 py-1">{{ book.title }}</p>
+                            <p class="my-0 py-0">{{ book.original_price }}</p>
+                            <p class="my-1">{{ book.selling_price }}<span class="py-0">(Fixed/Negotiable)</span></p>
+                             <span>
+                                <i class="fa-sharp fa-solid fa-location-dot px-2 py-0"></i>{{book.location}}
+                             </span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>          
+            <div class="underline"></div>
             <div class="col-lg-3 col-md-4 col-sm-6 col-12 py-5 card-col ">
               <a  href="{% url 'book_detail' book.id %}"> 
                  <div class="card shadow-lg book-item h-100" > 
                         <img src="{{ book.image.url }}" class="card-img-top fixed-image " alt="..." />
-
-
                     <div class="card-body text-center  ">
                         <span class="category px-4">{{ book.category}}</span>
                         <p class="fw-bold my-0 py-1">{{book.title}}</p>
@@ -28,17 +49,10 @@
                 </a>
                 </div>
             </div>
-            {% endfor %}
-
+          {% endfor %}
           {% else %}
           <div class="underline"> <h2> No results found </h2></div>
-
-
-            {% endif %}
-
-           
-
-   
+          {% endif %}  
 </section> 
 </div>
 {% endblock content%}

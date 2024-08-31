@@ -79,7 +79,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'project_2.context_processors.global_context',
+                # 'project_2.context_processors.global_context',
                 
             ],
         },
@@ -99,12 +99,11 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
          'NAME': 'project_2',
          'USER': 'root',
-         'PASSWORD': 'My_sql#1325',
+         'PASSWORD': 'mysql@123',
          'HOST':'localhost',
          'PORT':'3306',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

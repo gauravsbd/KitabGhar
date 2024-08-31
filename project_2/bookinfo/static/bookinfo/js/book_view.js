@@ -7,7 +7,6 @@ const submit = document.querySelector(".submit-btn");
 
 
 buyButton.addEventListener("click", () => {
-  alert("done")
   popupWrapper.style.display = "block";
 });
 
@@ -34,7 +33,6 @@ checkbox.addEventListener("change", function () {
         book_id: book_id,
       },
       success: function (data, textStatus, xhr) {
-        alert("done");
         if (data.error === "authentication_required") {
           var redirectUrl = data.redirect_url;
           if (redirectUrl) {

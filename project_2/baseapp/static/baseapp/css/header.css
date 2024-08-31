@@ -2,45 +2,39 @@ header{
     z-index: 999;
 }
 .navigation{
-    background-image: radial-gradient(#fff,#ffd6d6) !important;
+    background-image: radial-gradient(#fff,#fff) !important;
 }
 
-
-.navitem a {
-    color: black !important;
-}
 .navbar-toggler{
     background-color:white;
-    
-    /* color: white; */
 }
-.dropdown-menu li a:hover{
-    border:1px solid black !important;
-    border-radius: 0 !important;
-    color: black !important;
-}
+ 
 .dropdown-menu li a{
-    color:black  !important;
+    /* color:black  !important; */
     padding-bottom:.3rem ;
 }
 .dropdown-menu{
     margin-top: .5rem !important;
 }
-.navitem a:hover{
-    border:1px solid black !important;
-    border-radius: 5px;
-}
-.search, .login, .more-books{
+ 
+ 
+  
+  .navitem a:hover {
+    color: black;
+    font-weight: 500;
+  }
+  
+ 
+.login, .more-books{
     border:1px solid black !important;
     color: black !important;
 }
-.search:hover, .login:hover, .more-books:hover{
+.login:hover, .more-books:hover{
     transform: translateY(2px);
 }
 .continer{
     max-width: 1140px;
     margin: auto;
-
 }
 
 .user-image{
@@ -54,6 +48,14 @@ header{
     object-fit: cover;
     border-radius: 50%;
 }
+ 
+.noti{
+    background-color: transparent;
+}
+.notification-container>ul{
+  border-radius: 10px;
+}
 a{
-    text-decoration: none;
+    text-decoration: none !important;
+    color: black !important;
 }

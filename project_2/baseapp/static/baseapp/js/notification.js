@@ -1,53 +1,86 @@
 const notificationButton = document.getElementById("notification-button");
 const notificationDropdown=document.querySelector( "#notification-dropdown")
+const menu=document.querySelector(".notification-menu ")
 
-notificationButton.addEventListener("click", (event) => {
 
-  const notificationCount=event.target
-  while(notificationCount.firstChild){
-    notificationCount.removeChild(notificationCount.firstChild)
+
+notificationButton.addEventListener("click", () => {
+  // responsive notification
+
+  if(window.innerWidth>=992){
+    if(menu.classList.contains("dropdown-menu-start")){
+      menu.classList.remove("dropdown-menu-start")
+    }
+    menu.classList.add("dropdown-menu-end")
   }
-  while(notificationDropdown.firstChild){
-    notificationDropdown.removeChild(notificationDropdown.firstChild)
+  else if(window.innerWidth<992){
+    if(menu.classList.contains("dropdown-menu-end"))
+    {
+      menu.classList.remove("dropdown-menu-end")
+    }
+    menu.classList.add("dropdown-menu-start")
   }
+  
+  
+  // Clear the existing notifications
+  
+  while (notificationDropdown.firstChild) {
+    notificationDropdown.removeChild(notificationDropdown.firstChild);
+  }
+
   $.ajax({
     type: "GET",
     url: "/notification/",
     data: {},
     success: function (notification_data) {
-      notification_data.search_notification.forEach(element => {
-        const notificationDropdownList=document.createElement("li");
-        notificationDropdownList.setAttribute("book_id",element.book_id)
-        notificationDropdownList.setAttribute("search_id",element.search_id)
-        notificationDropdownList.className=("border-r border notification-list")
-        notificationDropdownList.addEventListener("click",handleSearchNotificationClick)
-        const notificationContent=document.createElement("p");
-        notificationContent.textContent=` ${element.title} book is now available you may like this.`;
-        notificationDropdownList.appendChild(notificationContent)
-        notificationDropdown.appendChild(notificationDropdownList)
+      notification_data.search_notification.forEach((element) => {
+        const notificationDropdownList = document.createElement("li");
+        notificationDropdownList.setAttribute("book_id", element.book_id);
+        notificationDropdownList.setAttribute("search_id", element.search_id);
+        notificationDropdownList.className = "border-r border notification-list";
+        notificationDropdownList.addEventListener(
+          "click",
+          handleSearchNotificationClick
+        );
+
+        const notificationContent = document.createElement("p");
+        notificationContent.className="dropdown-item"
+        notificationContent.textContent = `${element.title} book is now available you may like this.`;
+
         
+
+        notificationDropdownList.appendChild(notificationContent);
+        notificationDropdown.appendChild(notificationDropdownList);
       });
-    notification_data.pending_notification.forEach(element=>{
-      const notificationDropdownList=document.createElement("li");
-      notificationDropdownList.setAttribute("pending_id",element.pending_id)
-      notificationDropdownList.className=("border-r border notification-list")
-      notificationDropdownList.addEventListener("click",handlePendingNotificationClick)
-      const notificationContent=document.createElement("p");
-      notificationContent.textContent=` ${element.buyer_name} wants to buy the ${element.book_name} posted by you.`;
-      notificationDropdownList.appendChild(notificationContent)
-      notificationDropdown.appendChild(notificationDropdownList)
+
+      notification_data.pending_notification.forEach((element) => {
+        const notificationDropdownList = document.createElement("li");
+        notificationDropdownList.setAttribute("pending_id", element.pending_id);
+        notificationDropdownList.className = "border-r border notification-list dropdown-item";
+        notificationDropdownList.addEventListener(
+          "click",
+          handlePendingNotificationClick
+        );
+
+        const notificationContent = document.createElement("p");
+        notificationContent.textContent = ` ${element.buyer_name} wants to buy the ${element.book_name} posted by you.`;
+
       
-    })
+        notificationDropdownList.appendChild(notificationContent);
+        notificationDropdown.appendChild(notificationDropdownList);
+      });
     },
   });
 });
+
+
 
 function handleSearchNotificationClick(event)
 {
   listElement=event.target;
   listElement=listElement.closest("li")
   const searchId=listElement.getAttribute("search_id")
-  alert(searchId)
+  
   listElement=listElement.closest("li");
   book_id=listElement.getAttribute("book_id");
   window.location.href = `/book-detail/${book_id}`;
@@ -58,7 +91,7 @@ function handleSearchNotificationClick(event)
  listElement=event.target;
  listElement=listElement.closest("li")
  const pending_id=listElement.getAttribute("pending_id")
- alert(pending_id)
+ 
  window.location.href="/profile/";
 }
 
@@ -118,6 +151,6 @@ function getMessages(){
 }
 
 // setInterval(()=>{
-//   getMessages();
-// },100)
-getMessages();
+  //   getMessages();
+  // },100)
+  getMessages();
